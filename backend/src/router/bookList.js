@@ -6,7 +6,7 @@ import {
   updateBookList,
   deleteBookList,
   getBookLists,
-} from "../controllers/bookList/bookList.js";
+} from "../controllers/bookList/BookList.js";
 import { createBookListSchema } from "../controllers/bookList/BookListSchema.js";
 import { validationMiddleware } from "../middlewares/validation.js";
 import { verifyUser } from "../middlewares/verifyUser.js";
