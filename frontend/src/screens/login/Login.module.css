@@ -1,0 +1,53 @@
+.main{
+    display: flex;
+    width: 100%;
+}
+.img1{
+    display: flex;
+    width: 50%;
+ 
+
+}
+.main2{
+    margin-top: 200px;
+    margin-left: 40px;
+}
+.form{
+    width: 50%;
+}
+.form input{
+    border-bottom: 1px solid red;
+    margin-bottom: 80px;
+    width: 600px;
+    outline: none;
+ border-bottom-left-radius: 10px;
+ border-bottom-right-radius: 10px;
+ padding: 5px;
+ padding-left: 10px;
+}
+.form p{
+    margin-bottom: 20px;
+}
+.btn1{
+   color: white;
+   background-color: red;
+   width: 600px;
+   height: 60px;
+   border-radius: 10px;
+   font-size: 20px;
+}
+.btn1:hover{
+    transition: ease-in-out;
+}
+
+.login{
+    color: red;
+}
+
+.text{
+    margin-top: 40px;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    gap: 7px;
+}

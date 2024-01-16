@@ -1,0 +1,44 @@
+.nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 27px 150px;
+    width: 100%;
+   font-size: 22px;
+    border-bottom: 1px solid grey;
+    color: rgb(151, 29, 29);
+    position: fixed;
+    top: 0;
+    background: white;
+    z-index: 20;
+
+  
+}
+.main{
+    display: flex;
+    gap: 50px;
+}
+.main:focus{
+    color: grey;
+}
+.left{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.left input{
+    background-color: transparent;
+    padding: 10px;
+    color: grey;
+    width: 300px;
+    outline: none;
+    border: 1px solid grey;
+    border-radius: 15px;
+}
+.profile{
+    background-color: grey;
+  padding: 10px;
+  border-radius: 50%;
+  color: white;
+    
+}
