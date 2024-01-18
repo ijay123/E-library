@@ -40,6 +40,8 @@ const createUser = async (req, res) => {
     username: data.username,
     password: hash, //hash the password using bcrycpt
     email: data.email,
+    avatar:
+      "https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?size=338&ext=jpg&ga=GA1.1.1546980028.1702166400&semt=sph",
   });
 
   res.status(httpStatus.CREATED).json({
@@ -66,7 +68,6 @@ const loginUser = async (req, res) => {
   }
   const isConfirmed = await ComparePassword(data.password, userExist.password);
 
-  
   //check that password is correct
   if (!isConfirmed) {
     res.status(httpStatus.BAD_REQUEST).json({
@@ -80,7 +81,6 @@ const loginUser = async (req, res) => {
     status: "success",
     data: userExist,
     token: jwtToken(userExist._id, userExist.email),
-    
   });
 };
 
@@ -164,6 +164,58 @@ const getUser = async (req, res) => {
   }
 };
 
+const userProfileUpload = async (req, res) => {
+  const userId = req.user.id;
+  console.log(req.file, "req.file");
+
+  // const config = {
+  //   cloudinary_cloud_name: process.env.cloudinary_cloud_name,
+  //   cloudinary_api_key: process.env.cloudinary_api_key,
+  //   cloudinary_api_secret: process.env.cloudinary_api_secret,
+  // };
+
+  //   const response = await uploadSingleOrMultiImagesToClodinary(
+  //     req.files,
+  //     "image",
+  //     config
+  //   );
+
+  const foundUser = await User.findOne({ _id: userId });
+  if (!foundUser) {
+    res.status(httpStatus.NOT_FOUND).json({
+      status: "error",
+      message: "User not found",
+    });
+    return;
+  }
+
+  //remove old file from server
+  try {
+    const filePresent = await readText(`public/${foundUser.avatar}`);
+    console.log(filePresent, "filePresent");
+    if (filePresent) {
+      await deleteText(`public/${foundUser.avatar}`);
+    }
+
+    const userWithImageUpload = await User.findByIdAndUpdate(
+      { _id: userId },
+      { avatar: req.file.filename },
+      { new: true }
+    );
+
+    res.status(httpStatus.OK).json({
+      status: "success",
+      data: userWithImageUpload,
+    });
+  } catch (error) {
+    console.log(error, "error");
+    res.status(httpStatus.BAD_REQUEST).json({
+      status: "error",
+      data: error,
+    });
+  }
+};
+
 const updateUser = async (req, res) => {
   const { email, password } = req.body;
   const { id } = req.params;
@@ -213,4 +265,12 @@ const deleteUser = async (req, res) => {
   });
 };
 
-export { createUser, loginUser, getUsers, getUser, updateUser, deleteUser };
+export {
+  createUser,
+  loginUser,
+  getUsers,
+  getUser,
+  userProfileUpload,
+  updateUser,
+  deleteUser,
+};

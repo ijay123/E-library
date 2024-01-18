@@ -6,6 +6,7 @@ import {
   updateBookList,
   deleteBookList,
   getBookLists,
+  
 } from "../controllers/bookList/BookList.js";
 import { createBookListSchema } from "../controllers/bookList/BookListSchema.js";
 import { validationMiddleware } from "../middlewares/validation.js";
@@ -26,3 +27,4 @@ BookRouter.route("/:id")
   .delete(verifyUser, authorizeUser(["regular", "admin"]), deleteBookList);
 
 export default BookRouter;
+

@@ -42,7 +42,6 @@ const createCategory = async (req, res) => {
   });
 };
 
-
 const getCategories = async (req, res) => {
   const getCategory = await Category.find({});
 
@@ -55,17 +54,16 @@ const getCategories = async (req, res) => {
 // updated Category
 
 const updateCategory = async (req, res) => {
-  const { categoryList } = req.body;
+  const { categoryTitle } = req.body;
   const { id } = req.params;
   const foundCategory = await Category.findOne({ _id: id });
   if (!foundCategory) {
     res.status(httpStatus.NOT_FOUND).json({
       status: "error",
-      message: "User not found",
+      message: "Category not found",
     });
   }
-
-  const CategoryExist = await Category.findOne({ categoryList: categoryList });
+  const CategoryExist = await Category.findOne({ category: categoryTitle });
   if (CategoryExist) {
     res.status(httpStatus.NOT_FOUND).json({
       status: "error",
@@ -74,8 +72,8 @@ const updateCategory = async (req, res) => {
     return;
   }
   const updatedCategory = await Category.findByIdAndUpdate(
-    id,
-    { categoryLit: categoryList },
+    { _id: id },
+    { category: categoryTitle },
     { new: true }
   );
 
@@ -91,11 +89,12 @@ const deleteCategory = async (req, res) => {
   if (!foundCategory) {
     res.status(httpStatus.NOT_FOUND).json({
       status: "error",
-      message: "User not found",
+      message: "category not found",
     });
+    return;
   }
 
-  await Category.findByIdAndDelete(id);
+  await Category.findByIdAndDelete({_id:id});
 
   res.status(httpStatus.OK).json({
     status: "success",

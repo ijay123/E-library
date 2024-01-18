@@ -1,12 +1,21 @@
 import { combineReducers } from "redux";
-import { registerUserReducer } from "./reducers/user";
-import { loginUserReducer } from "./reducers/user";
-import { registerCategoryReducer } from "./reducers/category";
-import { getCategoryReducer } from "./reducers/category";
+import { registerUserReducer, loginUserReducer } from "./reducers/user";
+
+import {
+  registerCategoryReducer,
+  getCategoryReducer,
+  updateCategoryReducer,
+  deleteCategoryReducer,
+} from "./reducers/category";
+
+import { registerBookReducer } from "./reducers/books";
 
 export const combined = combineReducers({
   createdUser: registerUserReducer,
   loggedInUser: loginUserReducer,
   createdCategory: registerCategoryReducer,
   getCategories: getCategoryReducer,
+  updateCategory: updateCategoryReducer,
+  deleteCategory: deleteCategoryReducer,
+  createdBook: registerBookReducer,
 });

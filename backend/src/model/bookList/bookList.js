@@ -7,8 +7,8 @@ const bookListSchema = new mongoose.Schema(
     author: { type: String, unique: true, required: true },
     bookImage: { type: String },
     bookPDF: { type: String },
-    category: { type: mongoose.Schema.Types.ObjectId, ref: "Category" },
-    user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    categoryId: { type: mongoose.Schema.Types.ObjectId, ref: "Category" },
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   },
   { timestamps: true }
 );

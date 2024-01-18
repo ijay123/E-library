@@ -11,7 +11,10 @@ import {
   DELETE_CATEGORY_REQUEST,
   UPDATE_CATEGORY_REQUEST,
   UPDATE_CATEGORY_SUCCESS,
+  UPDATE_CATEGORY_ERROR,
+  DELETE_CATEGORY_ERROR,
 } from "../constants/category";
+import { toast } from "react-toastify";
 
 // import { toast } from "react-toastify";
 
@@ -127,7 +130,7 @@ export const getCategoriesAction = () => async (dispatch, state) => {
       `${baseUrl}/categories?id=${userInfoFromLocalStorage.data?._id}`,
       config
     );
-    console.log(data.data, "dataaaaaaaaaaaaaaaaaaaaaaaaa");
+    console.log(data.data, "data");
     //if we get here, then request is a success case
     dispatch({
       type: GET_CATEGORY_SUCCESS,
@@ -152,12 +155,11 @@ export const getCategoriesAction = () => async (dispatch, state) => {
   }
 };
 
-export const DeleteCategoryAction = (id) => async (dispatch, state) => {
-  const user = {};
+export const deleteCategoryAction = (id) => async (dispatch, state) => {
   const config = {
     headers: {
       "Content-Type": "application/json",
-      authorization: `Bearer ${user.token}`,
+      authorization: `Bearer ${userInfoFromLocalStorage.token}`,
     },
   };
   try {
@@ -182,48 +184,49 @@ export const DeleteCategoryAction = (id) => async (dispatch, state) => {
         : error.message;
     console.log(message, "error");
     dispatch({
-      type: GET_CATEGORY_ERROR,
+      type: DELETE_CATEGORY_ERROR,
       payload: message,
     });
   }
 };
 
-export const updateCategoryAction = (id, data) => async (dispatch, state) => {
-  const user = {};
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-      authorization: `Bearer ${user.token}`,
-    },
+export const updateCategoryAction =
+  (id, categoryTitle) => async (dispatch, state) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${userInfoFromLocalStorage.token}`,
+      },
+    };
+    try {
+      console.log(dispatch, "dispatch");
+      dispatch({
+        type: UPDATE_CATEGORY_REQUEST,
+      });
+      // make the call
+      const { data } = await axios.patch(
+        `${baseUrl}/categories/${id}`,
+        { categoryTitle },
+        config
+      );
+      console.log(data, "data");
+      //if we get here, then request is a success case
+      dispatch({
+        type: UPDATE_CATEGORY_SUCCESS,
+        payload: data.payload,
+      });
+    } catch (error) {
+      let message =
+        error.response && error.response.data.errors
+          ? error.response.data.errors.join(",")
+          : error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message;
+      console.log(message, "error");
+      toast.error(message);
+      dispatch({
+        type: UPDATE_CATEGORY_ERROR,
+        payload: message,
+      });
+    }
   };
-  try {
-    console.log(dispatch, "dispatch");
-    dispatch({
-      type: UPDATE_CATEGORY_REQUEST,
-    });
-    // make the call
-    const { data } = await axios.patch(
-      `${baseUrl}/categories/${id}`,
-      data,
-      config
-    );
-    console.log(data, "data");
-    //if we get here, then request is a success case
-    dispatch({
-      type: UPDATE_CATEGORY_SUCCESS,
-      payload: data.payload,
-    });
-  } catch (error) {
-    let message =
-      error.response && error.response.data.errors
-        ? error.response.data.errors.join(",")
-        : error.response && error.response.data.message
-        ? error.response.data.message
-        : error.message;
-    console.log(message, "error");
-    dispatch({
-      type: GET_CATEGORY_ERROR,
-      payload: message,
-    });
-  }
-};

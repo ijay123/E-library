@@ -14,6 +14,9 @@ const userSchema = mongoose.Schema(
       unique: true,
       required: [true, "Please, supply the email"],
     },
+    avatar: {
+      type: String,
+    },
     BookList: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "BookList",

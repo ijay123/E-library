@@ -42,8 +42,10 @@ const createBookList = async (req, res) => {
     title: data.title,
     publisher: data.publisher,
     author: data.author,
-    category: data.category._id,
-    user: req.user._id,
+    categoryId: data.categoryId,
+    bookImage: data.bookImage,
+    bookPDF: data.bookPDF,
+    userId: data.userId,
   });
 
   res.status(httpStatus.CREATED).json({
@@ -51,6 +53,44 @@ const createBookList = async (req, res) => {
     data: createdBookList,
   });
 };
+
+
+const createbookImage = async (req, res) => {
+  // const userId = req.user.id;
+  // console.log(req.file, "req.file");
+
+  // const foundUser = await User.findOne({ _id: userId });
+  // if (!foundUser) {
+  //   res.status(httpStatus.NOT_FOUND).json({
+  //     status: "error",
+  //     message: "User not found",
+  //   });
+  //   return;
+  // }
+
+  //remove old file from server
+  try {
+    const filePresent = await readText(`public/${foundUser.bookImage}`);
+    if (filePresent) {
+      await deleteText(`public/${foundUser.bookImage}`);
+    }
+  } catch (error) {
+    console.log(error, "errorr");
+  }
+
+  const bookWithImageCreated = await BookList.create(
+    { _id: userId },
+    { bookImage: req.file.filename },
+  
+  );
+
+  res.status(httpStatus.OK).json({
+    status: "success",
+    data: bookWithImageCreated,
+  });
+};
+
+
 
 const getBookLists = async (req, res) => {
   const getBook = await BookList.find({});
@@ -104,8 +144,6 @@ const bookImageUpload = async (req, res) => {
   //   });
   //   return;
   // }
-
-
 
   //remove old file from server
   try {
@@ -182,4 +220,10 @@ const deleteBookList = async (req, res) => {
   });
 };
 
-export { createBookList, getBookLists, updateBookList, deleteBookList, bookImageUpload };
+export {
+  createBookList,
+  getBookLists,
+  updateBookList,
+  deleteBookList,
+  bookImageUpload,
+};
