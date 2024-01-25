@@ -4,6 +4,9 @@ import {
   CREATE_BOOKS_SUCCESS,
   CREATE_BOOKS_ERROR,
   CREATE_BOOKS_REQUEST,
+  UPLOAD_IMAGE_REQUEST,
+  UPLOAD_IMAGE_SUCCESS,
+  UPLOAD_IMAGE_ERROR,
 } from "../constants/books";
 
 const userInfoFromLocalStorage = localStorage.getItem("libraryUserInfo")
@@ -28,17 +31,13 @@ export const createBookAction = (formData) => async (dispatch, state) => {
     },
   };
 
-  const formBookData = new FormData()
+  // const formBookData = new FormData()
 
-       formBookData.append('title', formData.title)
-       formBookData.append('bookImage', 'image file')
+  //      formBookData.append('title', formData.title)
+  //      formBookData.append('bookImage', 'image file')
   try {
     //make API call
-    const { data } = await axios.post(
-      `${baseUrl}/books`,
-      formData,
-      config
-    );
+    const { data } = await axios.post(`${baseUrl}/books`, formData, config);
     //2. after the API call success
     console.log(data, "data");
     dispatch({
@@ -63,3 +62,32 @@ export const createBookAction = (formData) => async (dispatch, state) => {
 };
 
 
+
+export const imageUploadAction = (formData) => async (dispatch, state) => {
+  dispatch({
+    type: UPLOAD_IMAGE_REQUEST,
+  });
+
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${userInfoFromLocalStorage.token}`,
+    },
+  };
+
+  try {
+    const formBookData = new FormData();
+    formBookData.append("title", formData.title);
+    formBookData.append("bookImage", formData.bookImage);
+
+    const response = await axios.patch(
+      `${baseUrl}/upload-image`,
+      formBookData,
+      config
+    );
+
+    dispatch(UPLOAD_IMAGE_SUCCESS(response.data.url));
+  } catch (error) {
+    dispatch(UPLOAD_IMAGE_ERROR(error.message));
+  }
+};

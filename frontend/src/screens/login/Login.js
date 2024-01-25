@@ -82,6 +82,7 @@ const Login = () => {
       </div>
       <div className={styles.main2}>
         <form className={styles.form}>
+        <p className="text-[30px] font-bold pb-[40px]">Login Into Account</p>
           <p>EMAIL</p>
           <input
             type="email"

@@ -1,5 +1,7 @@
 import httpStatus from "http-status";
 import BookList from "../../model/bookList/bookList.js";
+import { deleteText, readText } from '../../util/FsUtils.js';
+import { uploadToCloudinary, uploadSIngleOrMultiImagesToCloudinary} from '../../util/cloudinary.js';
 
 const createBookList = async (req, res) => {
   //collect the data from req body
@@ -54,43 +56,58 @@ const createBookList = async (req, res) => {
   });
 };
 
+const bookImageUpload = async (req, res) => {
+  const userId = req.user.id;
+  const bookId = req.book.id
+  console.log(req.file, "req.file");
 
-const createbookImage = async (req, res) => {
-  // const userId = req.user.id;
-  // console.log(req.file, "req.file");
+  const config = {
+    cloudinary_cloud_name: process.env.cloudinary_cloud_name,
+    cloudinary_api_key: process.env.cloudinary_api_key,
+    cloudinary_api_secret: process.env.cloudinary_api_secret,
+  };
 
-  // const foundUser = await User.findOne({ _id: userId });
-  // if (!foundUser) {
-  //   res.status(httpStatus.NOT_FOUND).json({
-  //     status: "error",
-  //     message: "User not found",
-  //   });
-  //   return;
-  // }
+    const response = await uploadSingleOrMultiImagesToCloudinary(
+      req.files,
+      "image",
+      config
+    );
+
+  const foundBook = await BookList.findOne({ _id: bookId });
+  if (!foundBook) {
+    res.status(httpStatus.NOT_FOUND).json({
+      status: "error",
+      message: "Book not found",
+    });
+    return;
+  }
 
   //remove old file from server
   try {
-    const filePresent = await readText(`public/${foundUser.bookImage}`);
+    const filePresent = await readText(`public/${foundBook.bookImage}`);
+    console.log(filePresent, "filePresent");
     if (filePresent) {
-      await deleteText(`public/${foundUser.bookImage}`);
+      await deleteText(`public/${foundBook.bookImage}`);
     }
+
+    const bookWithImageUpload = await BookList.findByIdAndUpdate(
+      id,
+      { bookImage: req.file.filename },
+      { new: true }
+    );
+
+    res.status(httpStatus.OK).json({
+      status: "success",
+      data: bookWithImageUpload,
+    });
   } catch (error) {
-    console.log(error, "errorr");
+    console.log(error, "error");
+    res.status(httpStatus.BAD_REQUEST).json({
+      status: "error",
+      data: error,
+    });
   }
-
-  const bookWithImageCreated = await BookList.create(
-    { _id: userId },
-    { bookImage: req.file.filename },
-  
-  );
-
-  res.status(httpStatus.OK).json({
-    status: "success",
-    data: bookWithImageCreated,
-  });
 };
-
-
 
 const getBookLists = async (req, res) => {
   const getBook = await BookList.find({});
@@ -132,40 +149,142 @@ const updateBookList = async (req, res) => {
   });
 };
 
-const bookImageUpload = async (req, res) => {
-  // const userId = req.user.id;
-  // console.log(req.file, "req.file");
+const getBookList = async (req, res) => {
+  const id = req.params.id;
+  const type = req.query.type;
 
-  // const foundUser = await User.findOne({ _id: userId });
-  // if (!foundUser) {
-  //   res.status(httpStatus.NOT_FOUND).json({
-  //     status: "error",
-  //     message: "User not found",
-  //   });
-  //   return;
-  // }
+  const title = req.query.title;
+  const publisher = req.query.publisher;
+  const author = req.query.author;
+  const categoryId = req.query.categoryId;
+  const bookImage = req.query.bookImage;
+  const bookPDF = req.query.bookPDF;
+  const userId = req.query.userId;
 
-  //remove old file from server
-  try {
-    const filePresent = await readText(`public/${foundUser.avatar}`);
-    if (filePresent) {
-      await deleteText(`public/${foundUser.avatar}`);
-    }
-  } catch (error) {
-    console.log(error, "errorr");
+  console.log(type, email, "type");
+
+  let book;
+  switch (type) {
+    case "ID":
+      book = await BookList.findById(id);
+      if (!book) {
+        res.status(httpStatus.NOT_FOUND).json({
+          status: "error",
+          message: "book with id not found",
+        });
+        break;
+      }
+
+      res.status(httpStatus.OK).json({
+        status: "success",
+        data: book,
+      });
+      break;
+
+    case "TITLE":
+      book = await BookList.findOne({ title: title });
+      if (!book) {
+        res.status(httpStatus.NOT_FOUND).json({
+          status: "error",
+          message: "book with title not found",
+        });
+        break;
+      }
+
+      res.status(httpStatus.OK).json({
+        status: "success",
+        data: book,
+      });
+      break;
+
+    case "PUBLISHER":
+      book = await BookList.findOne({ publisher: publisher });
+      if (!book) {
+        res.status(httpStatus.NOT_FOUND).json({
+          status: "error",
+          message: "book with publisher not found",
+        });
+        break;
+      }
+
+      res.status(httpStatus.OK).json({
+        status: "success",
+        data: book,
+      });
+      break;
+
+    case "AUTHOR":
+      book = await BookList.findOne({ author: author });
+      if (!book) {
+        res.status(httpStatus.NOT_FOUND).json({
+          status: "error",
+          message: "book with author not found",
+        });
+        break;
+      }
+
+      res.status(httpStatus.OK).json({
+        status: "success",
+        data: book,
+      });
+      break;
+
+    case "BOOKIMAGE":
+      book = await BookList.findOne({ bookImage: bookImage });
+      if (!book) {
+        res.status(httpStatus.NOT_FOUND).json({
+          status: "error",
+          message: "book with bookImage not found",
+        });
+        break;
+      }
+
+      res.status(httpStatus.OK).json({
+        status: "success",
+        data: book,
+      });
+      break;
+
+    case "BOOKPDF":
+      book = await BookList.findOne({ bookPDF: bookPDF });
+      if (!book) {
+        res.status(httpStatus.NOT_FOUND).json({
+          status: "error",
+          message: "book with bookPDF not found",
+        });
+        break;
+      }
+
+      res.status(httpStatus.OK).json({
+        status: "success",
+        data: book,
+      });
+      break;
+
+    // case "TITLE":
+    //   book = await BookList.findOne({ title: title });
+    //   if (!book) {
+    //     res.status(httpStatus.NOT_FOUND).json({
+    //       status: "error",
+    //       message: "book with title not found",
+    //     });
+    //     break;
+    //   }
+
+    //   res.status(httpStatus.OK).json({
+    //     status: "success",
+    //     data: book,
+    //   });
+    //   break;
+
+    default:
+      res.status(httpStatus.NOT_FOUND).json({
+        status: "error",
+        message: "book not found",
+      });
   }
-
-  const bookWithImageUpload = await BookList.findByIdAndUpdate(
-    { _id: userId },
-    { bookImage: req.file.filename },
-    { new: true }
-  );
-
-  res.status(httpStatus.OK).json({
-    status: "success",
-    data: bookWithImageUpload,
-  });
 };
+
 
 const bookPdfUpload = async (req, res) => {
   // const userId = req.user.id;

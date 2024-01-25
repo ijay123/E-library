@@ -132,7 +132,7 @@ const AdminCategory = () => {
       </div>
 
       {/* display screen */}
-      <div className="bg-white w-[400px] h-[400px] rounded-[7px] p-[30px]">
+      <div className="bg-white w-[400px]  rounded-[7px] p-[30px]">
         <p className="text-[25px] text-[red]">All Categories</p>
         {categories
           ? categories.map((catList, id) => (

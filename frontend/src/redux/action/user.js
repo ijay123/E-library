@@ -8,16 +8,20 @@ import {
   LOGIN_USER_REQUEST,
   LOGIN_USER_SUCCESS,
   LOGIN_USER_RESET,
-  GET_USER_SUCCESS,
+  GET_USERS_SUCCESS,
+  GET_USERS_REQUEST,
+  GET_USERS_ERROR,
+  GET_USER_ERROR,
   GET_USER_REQUEST,
+  GET_USER_SUCCESS,
 } from "../constants/user";
 import { toast } from "react-toastify";
 
 const baseUrl = "http://localhost:6600";
 
-// const userInfoFromLocalStorage = localStorage.getItem("libraryUserInfo")
-//   ? JSON.parse(localStorage.getItem("libraryUserInfo"))
-//   : null;
+const userInfoFromLocalStorage = localStorage.getItem("libraryUserInfo")
+  ? JSON.parse(localStorage.getItem("libraryUserInfo"))
+  : null;
 
 export const createUserAction =
   ({ email, password, username }) =>
@@ -136,14 +140,14 @@ export const getUsersAction = () => async (dispatch, state) => {
   try {
     console.log(dispatch, "dispatch");
     dispatch({
-      type: GET_USER_REQUEST,
+      type: GET_USERS_REQUEST,
     });
     // make the call
     const { data } = await axios.get(`${baseUrl}/users`, config);
     console.log(data, "data");
     //if we get here, then request is a success case
     dispatch({
-      type: GET_USER_SUCCESS,
+      type: GET_USERS_SUCCESS,
       payload: data.payload,
     });
   } catch (error) {
@@ -159,7 +163,45 @@ export const getUsersAction = () => async (dispatch, state) => {
     //   dispatch(logout());
     // }
     dispatch({
-      type: LOGIN_USER_ERROR,
+      type: GET_USERS_ERROR,
+      payload: message,
+    });
+  }
+};
+
+export const getUserAction = (userId) => async (dispatch, state) => {
+  const {
+    loggedInUser: { user },
+  } = state();
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${user.token}`,
+    },
+  };
+  try {
+    console.log(dispatch, "dispatch");
+    dispatch({
+      type: GET_USER_REQUEST,
+    });
+    // make the call
+    const { data } = await axios.get(`${baseUrl}/users/${userId}`, config);
+    console.log(data, "data");
+    //if we get here, then request is a success case
+    dispatch({
+      type: GET_USER_SUCCESS,
+      payload: data.payload,
+    });
+  } catch (error) {
+    let message =
+      error.response && error.response.data.errors
+        ? error.response.data.errors.join(",")
+        : error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    console.log(message, "error");
+    dispatch({
+      type: GET_USER_ERROR,
       payload: message,
     });
   }

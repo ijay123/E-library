@@ -6,38 +6,51 @@ import {
   CREATE_BOOKS_CLEAR_ERROR,
   CREATE_BOOKS_RESET,
 } from "../../../redux/constants/books";
-import { createBookAction } from "../../../redux/action/books";
+import {
+  createBookAction,
+  imageUploadAction,
+} from "../../../redux/action/books";
 import { getCategoriesAction } from "../../../redux/action/category";
+
 const AdminBooks = () => {
   const dispatch = useDispatch();
   const {
     createdCategory: { error, book, success, loading },
     getCategories: { categories },
+    imageUpload: { imageUrl, success: imageSuccess, loading: imageLoading },
   } = useSelector((state) => state);
 
   const userInfoFromLocalStorage = localStorage.getItem("libraryUserInfo")
     ? JSON.parse(localStorage.getItem("libraryUserInfo"))
     : null;
+  const [selectedFile, setSelectedFile] = useState(null);
 
   const [value, setValue] = useState({
     title: "",
     author: "",
     categoryId: "",
+    bookImage: selectedFile,
     publisher: "",
     userId: userInfoFromLocalStorage?.data?._id,
   });
 
- 
   const handleChange = (event) => {
     const { name } = event.target;
     setValue({ ...value, [name]: event.target.value });
     console.log(event.target?.value);
   };
 
+  const handleFileChange = (e) => {
+    setSelectedFile(e.target.files[0]);
+  };
   useEffect(() => {
     if (success) {
       toast.success(`successfully added book`);
       dispatch({ type: CREATE_BOOKS_RESET });
+    }
+
+    if (imageSuccess) {
+      toast.success(`successfully added image`);
     }
 
     if (error) {
@@ -47,10 +60,10 @@ const AdminBooks = () => {
       }, 3000);
     }
     dispatch(getCategoriesAction());
-  }, [success, error, dispatch]);
+  }, [success, error, dispatch, imageSuccess]);
 
   async function bookHandler() {
-    dispatch(createBookAction(value));
+    dispatch(createBookAction(value), imageUploadAction(selectedFile));
   }
 
   return (
@@ -79,23 +92,24 @@ const AdminBooks = () => {
         />
 
         <p>Select Category</p>
-         <select className="mb-[30px] w-[50%] p-[5px]">
-        {categories
-          ? categories.map((cat, id) => (
-             
-                <option key={id}>{cat.category}</option>
-            
-            ))
-          : ""}
-            </select>
+        <select className="mb-[30px] w-[50%] p-[5px]">
+          {categories
+            ? categories.map((cat, id) => (
+                <option key={id} value={cat.id}>
+                  {cat.category}
+                </option>
+              ))
+            : ""}
+        </select>
 
         <input
           type="file"
-          onChange={handleChange}
+          name="bookImage"
+          onChange={handleFileChange}
           placeholder="Search books..."
         />
 
-        {loading ? (
+        {loading && imageLoading ? (
           <Spinner />
         ) : (
           <button

@@ -2,6 +2,11 @@ import User from "../../model/user/user.js";
 import httpStatus from "http-status";
 import bcrypt from "bcrypt";
 import { jwtToken } from "../../util/generateToken.js";
+import { deleteText, readText } from "../../util/FsUtils.js";
+import {
+  uploadToCloudinary,
+  uploadSIngleOrMultiImagesToCloudinary,
+} from "../../util/cloudinary.js";
 
 const createUser = async (req, res) => {
   //collect the data from req body
@@ -27,7 +32,7 @@ const createUser = async (req, res) => {
   if (usernameExist) {
     res.status(httpStatus.BAD_REQUEST).json({
       status: "error",
-      message: "User with yusername already exist",
+      message: "User with username already exist",
     });
     return;
   }
@@ -100,9 +105,10 @@ const getUsers = async (req, res) => {
 
 const getUser = async (req, res) => {
   const id = req.params.id;
-  const type = req.query.type;
+  // const type = req.query.type;
   const email = req.query.email;
   const username = req.query.username;
+  const avatar = req.query.avatar;
 
   console.log(type, email, "type");
 
@@ -113,7 +119,7 @@ const getUser = async (req, res) => {
       if (!user) {
         res.status(httpStatus.NOT_FOUND).json({
           status: "error",
-          message: "User ith id not found",
+          message: "User with id not found",
         });
         break;
       }
@@ -150,6 +156,16 @@ const getUser = async (req, res) => {
         break;
       }
 
+      case "AVATAR":
+        user = await User.findOne({ avatar: avatar });
+        if (!user) {
+          res.status(httpStatus.NOT_FOUND).json({
+            status: "error",
+            message: "User with avatar not found",
+          });
+          break;
+        }
+
       res.status(httpStatus.OK).json({
         status: "success",
         data: user,
@@ -168,17 +184,17 @@ const userProfileUpload = async (req, res) => {
   const userId = req.user.id;
   console.log(req.file, "req.file");
 
-  // const config = {
-  //   cloudinary_cloud_name: process.env.cloudinary_cloud_name,
-  //   cloudinary_api_key: process.env.cloudinary_api_key,
-  //   cloudinary_api_secret: process.env.cloudinary_api_secret,
-  // };
+  const config = {
+    cloudinary_cloud_name: process.env.cloudinary_cloud_name,
+    cloudinary_api_key: process.env.cloudinary_api_key,
+    cloudinary_api_secret: process.env.cloudinary_api_secret,
+  };
 
-  //   const response = await uploadSingleOrMultiImagesToClodinary(
-  //     req.files,
-  //     "image",
-  //     config
-  //   );
+  const response = await uploadSingleOrMultiImagesToCloudinary(
+    req.files,
+    "image",
+    config
+  );
 
   const foundUser = await User.findOne({ _id: userId });
   if (!foundUser) {

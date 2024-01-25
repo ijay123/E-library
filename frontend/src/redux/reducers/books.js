@@ -4,6 +4,9 @@ import {
   CREATE_BOOKS_REQUEST,
   CREATE_BOOKS_RESET,
   CREATE_BOOKS_SUCCESS,
+  UPLOAD_IMAGE_ERROR,
+  UPLOAD_IMAGE_REQUEST,
+  UPLOAD_IMAGE_SUCCESS,
 } from "../constants/books";
 
 export const registerBookReducer = (
@@ -50,3 +53,36 @@ export const registerBookReducer = (
       return state;
   }
 };
+
+export const imageUploadReducer = (
+  state = { ImageUrl: "", loading: false, error: null },
+  action
+) => {
+  switch (action.type) {
+    case UPLOAD_IMAGE_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+
+    case UPLOAD_IMAGE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        imageUrl: action.payload,
+      };
+
+    case UPLOAD_IMAGE_ERROR:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+
+    default:
+      return state;
+  }
+};
+
+

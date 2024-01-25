@@ -65,6 +65,7 @@ const Signup = () => {
       </div>
       <div className={styles.main2}>
         <form className={styles.form}>
+        <p className="text-[30px] font-bold pb-[40px]">Create Account</p>
           <p>USERNAME</p>
           <input
             onChange={changeHandler}
