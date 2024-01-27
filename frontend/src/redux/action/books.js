@@ -7,6 +7,9 @@ import {
   UPLOAD_IMAGE_REQUEST,
   UPLOAD_IMAGE_SUCCESS,
   UPLOAD_IMAGE_ERROR,
+  GET_BOOKS_ERROR,
+  GET_BOOKS_REQUEST,
+  GET_BOOKS_SUCCESS,
 } from "../constants/books";
 
 const userInfoFromLocalStorage = localStorage.getItem("libraryUserInfo")
@@ -16,10 +19,6 @@ const userInfoFromLocalStorage = localStorage.getItem("libraryUserInfo")
 const baseUrl = "http://localhost:6600";
 
 export const createBookAction = (formData) => async (dispatch, state) => {
-  // const {
-  //   loggedInUser: { user},
-  // } = state();
-  //1. before the API call
   dispatch({
     type: CREATE_BOOKS_REQUEST,
   });
@@ -61,8 +60,6 @@ export const createBookAction = (formData) => async (dispatch, state) => {
   }
 };
 
-
-
 export const imageUploadAction = (formData) => async (dispatch, state) => {
   dispatch({
     type: UPLOAD_IMAGE_REQUEST,
@@ -89,5 +86,51 @@ export const imageUploadAction = (formData) => async (dispatch, state) => {
     dispatch(UPLOAD_IMAGE_SUCCESS(response.data.url));
   } catch (error) {
     dispatch(UPLOAD_IMAGE_ERROR(error.message));
+  }
+};
+
+export const getBooksAction = () => async (dispatch, state) => {
+  const {
+    loggedInUser: { user },
+  } = state();
+
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${user.token}`,
+    },
+  };
+  try {
+    console.log(dispatch, "dispatch");
+    dispatch({
+      type: GET_BOOKS_REQUEST,
+    });
+    // make the call
+    const { data } = await axios.get(
+      `${baseUrl}/books?id=${userInfoFromLocalStorage.data?._id}`,
+      config
+    );
+    console.log(data.data, "data");
+    //if we get here, then request is a success case
+    dispatch({
+      type: GET_BOOKS_SUCCESS,
+      payload: data.data,
+    });
+  } catch (error) {
+    let message =
+      error.response && error.response.data.errors
+        ? error.response.data.errors.join(",")
+        : error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+
+    // console.log(error, "error");
+    // if (message.toLowerCase().includes("jwt")) {
+    //   dispatch(logout());
+    // }
+    dispatch({
+      type: GET_BOOKS_ERROR,
+      payload: message,
+    });
   }
 };

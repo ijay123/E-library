@@ -1,41 +1,19 @@
 import httpStatus from "http-status";
 import BookList from "../../model/bookList/bookList.js";
-import { deleteText, readText } from '../../util/FsUtils.js';
-import { uploadToCloudinary, uploadSIngleOrMultiImagesToCloudinary} from '../../util/cloudinary.js';
+import path from "path";
 
 const createBookList = async (req, res) => {
   //collect the data from req body
   const data = req.body;
+  console.log(data.title);
 
   const titleExist = await BookList.findOne({
     title: data.title,
   });
-  if (!titleExist) {
+  if (titleExist) {
     res.status(httpStatus.BAD_REQUEST).json({
       status: "error",
-      message: "title must not be empty",
-    });
-    return;
-  }
-
-  const publisherExist = await BookList.findOne({
-    publisher: data.publisher,
-  });
-  if (!publisherExist) {
-    res.status(httpStatus.BAD_REQUEST).json({
-      status: "error",
-      message: "publisher must not be empty",
-    });
-    return;
-  }
-
-  const authorExist = await BookList.findOne({
-    author: data.author,
-  });
-  if (!authorExist) {
-    res.status(httpStatus.BAD_REQUEST).json({
-      status: "error",
-      message: "author must not be empty",
+      message: "title already exists",
     });
     return;
   }
@@ -44,6 +22,7 @@ const createBookList = async (req, res) => {
     title: data.title,
     publisher: data.publisher,
     author: data.author,
+    desc: data.desc,
     categoryId: data.categoryId,
     bookImage: data.bookImage,
     bookPDF: data.bookPDF,
@@ -54,59 +33,6 @@ const createBookList = async (req, res) => {
     status: "success",
     data: createdBookList,
   });
-};
-
-const bookImageUpload = async (req, res) => {
-  const userId = req.user.id;
-  const bookId = req.book.id
-  console.log(req.file, "req.file");
-
-  const config = {
-    cloudinary_cloud_name: process.env.cloudinary_cloud_name,
-    cloudinary_api_key: process.env.cloudinary_api_key,
-    cloudinary_api_secret: process.env.cloudinary_api_secret,
-  };
-
-    const response = await uploadSingleOrMultiImagesToCloudinary(
-      req.files,
-      "image",
-      config
-    );
-
-  const foundBook = await BookList.findOne({ _id: bookId });
-  if (!foundBook) {
-    res.status(httpStatus.NOT_FOUND).json({
-      status: "error",
-      message: "Book not found",
-    });
-    return;
-  }
-
-  //remove old file from server
-  try {
-    const filePresent = await readText(`public/${foundBook.bookImage}`);
-    console.log(filePresent, "filePresent");
-    if (filePresent) {
-      await deleteText(`public/${foundBook.bookImage}`);
-    }
-
-    const bookWithImageUpload = await BookList.findByIdAndUpdate(
-      id,
-      { bookImage: req.file.filename },
-      { new: true }
-    );
-
-    res.status(httpStatus.OK).json({
-      status: "success",
-      data: bookWithImageUpload,
-    });
-  } catch (error) {
-    console.log(error, "error");
-    res.status(httpStatus.BAD_REQUEST).json({
-      status: "error",
-      data: error,
-    });
-  }
 };
 
 const getBookLists = async (req, res) => {
@@ -187,6 +113,22 @@ const getBookList = async (req, res) => {
         res.status(httpStatus.NOT_FOUND).json({
           status: "error",
           message: "book with title not found",
+        });
+        break;
+      }
+
+      res.status(httpStatus.OK).json({
+        status: "success",
+        data: book,
+      });
+      break;
+
+    case "DESC":
+      book = await BookList.findOne({ title: title });
+      if (!book) {
+        res.status(httpStatus.NOT_FOUND).json({
+          status: "error",
+          message: "book with DESC not found",
         });
         break;
       }
@@ -285,42 +227,6 @@ const getBookList = async (req, res) => {
   }
 };
 
-
-const bookPdfUpload = async (req, res) => {
-  // const userId = req.user.id;
-  // console.log(req.file, "req.file");
-
-  // const foundUser = await User.findOne({ _id: userId });
-  // if (!foundUser) {
-  //   res.status(httpStatus.NOT_FOUND).json({
-  //     status: "error",
-  //     message: "User not found",
-  //   });
-  //   return;
-  // }
-
-  //remove old file from server
-  try {
-    const filePresent = await readText(`public/${foundUser.bookPDF}`);
-    if (filePresent) {
-      await deleteText(`public/${foundUser.bookPDF}`);
-    }
-  } catch (error) {
-    console.log(error, "errorr");
-  }
-
-  const bookWithPdfUpload = await BookList.findByIdAndUpdate(
-    { _id: userId },
-    { bookPDF: req.file.filename },
-    { new: true }
-  );
-
-  res.status(httpStatus.OK).json({
-    status: "success",
-    data: bookWithPdfUpload,
-  });
-};
-
 const deleteBookList = async (req, res) => {
   const { id } = req.params;
   const foundBookList = await BookList.findOne({ _id: id });
@@ -342,7 +248,7 @@ const deleteBookList = async (req, res) => {
 export {
   createBookList,
   getBookLists,
+  getBookList,
   updateBookList,
   deleteBookList,
-  bookImageUpload,
 };

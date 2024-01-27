@@ -42,6 +42,7 @@ const Navigation = () => {
           <img src={userInfoFromLocalStorage.avatar} alt="" />
         </div>
       </div>
+      <div className={styles.menubar}>Menu</div>
     </div>
   );
 };

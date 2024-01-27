@@ -40,7 +40,7 @@ export const verifyUser = async (req, res, next) => {
   //'Bearer khjkgjjg'.split(" ") => ["Bearer","hkjkhjhkj"]
   //2.
   const token = req.headers.authorization.split(" ")[1];
-  console.log(token, "tokekn");
+  console.log(token, "token");
 
   //3. confirm the token is the one issued, signed and not expired
   const decoded = JWT.decode(token, process.env.JWT_SECRET);

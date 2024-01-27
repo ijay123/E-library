@@ -1,12 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./Home.module.css";
-import bookData from "../../data/database/bookData";
 import Snowfall from "react-snowfall";
 import { ImLibrary } from "react-icons/im";
 import { IoBookSharp } from "react-icons/io5";
 import catData from "../../data/database/categoryData";
+import { useDispatch, useSelector } from "react-redux";
+import { getBooksAction } from "../../redux/action/books";
+import { Link } from "react-router-dom";
 
 const Home = () => {
+  const dispatch = useDispatch();
+  const {
+    getBooks: { books },
+    getCategories: { categories },
+  } = useSelector((state) => state);
+
+  console.log(books, "books");
+
+  useEffect(() => {
+    dispatch(getBooksAction());
+  }, [dispatch]);
   return (
     <>
       <div className={styles.home}>
@@ -29,13 +42,14 @@ const Home = () => {
       <Snowfall color="red" snowflakeCount={60} />
       <p className={styles.explore}>Explore our books</p>
       <div className={styles.main}>
-        {bookData.slice(0, 4).map((books, id) => (
-          <div className={styles.book}>
-            <img src={books.book} alt="" />
-          </div>
-        ))}
+        {books &&
+          books.slice(0, 4).map((books, id) => (
+            <div className={styles.book} key={id}>
+              <img src={books.bookImage} alt="" />
+            </div>
+          ))}
       </div>
-      <button className={styles.more}>More</button>
+     <Link to={'/books'}> <button className={styles.more}>More</button></Link>
       {/* categories */}
       <div>
         <p className={styles.ecat}> Explore The Categories</p>

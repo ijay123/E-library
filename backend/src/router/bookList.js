@@ -6,14 +6,12 @@ import {
   updateBookList,
   deleteBookList,
   getBookLists,
-  bookImageUpload
-  
+  getBookList,
 } from "../controllers/bookList/BookList.js";
 import { createBookListSchema } from "../controllers/bookList/BookListSchema.js";
 import { validationMiddleware } from "../middlewares/validation.js";
 import { verifyUser } from "../middlewares/verifyUser.js";
 import { authorizeUser } from "../middlewares/authorizeUser.js";
-import { upload } from "../util/multer.js";
 
 BookRouter.route("/")
   .post(
@@ -22,15 +20,11 @@ BookRouter.route("/")
     authorizeUser("admin"),
     createBookList
   )
-  .get(verifyUser, authorizeUser(["admin, regular"]), getBookLists);
-
-  BookRouter
-  .route("/upload-image")
-  .patch(verifyUser, upload.single("bookImage"), bookImageUpload);
+  .get(verifyUser, getBookLists);
 
 BookRouter.route("/:id")
+  .get(verifyUser, authorizeUser(["admin, regular"]), getBookList)
   .patch(verifyUser, authorizeUser(["regular", "admin"]), updateBookList)
   .delete(verifyUser, authorizeUser(["regular", "admin"]), deleteBookList);
 
 export default BookRouter;
-

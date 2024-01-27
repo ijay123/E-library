@@ -13,7 +13,11 @@ import {
   deleteCategoryReducer,
 } from "./reducers/category";
 
-import { registerBookReducer, imageUploadReducer } from "./reducers/books";
+import {
+  registerBookReducer,
+  imageUploadReducer,
+  getBooksReducer,
+} from "./reducers/books";
 
 export const combined = combineReducers({
   createdUser: registerUserReducer,
@@ -25,5 +29,6 @@ export const combined = combineReducers({
   updateCategory: updateCategoryReducer,
   deleteCategory: deleteCategoryReducer,
   createdBook: registerBookReducer,
+  getBooks: getBooksReducer,
   imageUpload: imageUploadReducer,
 });
