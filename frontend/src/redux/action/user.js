@@ -143,7 +143,7 @@ export const getUsersAction = () => async (dispatch, state) => {
       type: GET_USERS_REQUEST,
     });
     // make the call
-    const { data } = await axios.get(`${baseUrl}/users`, config);
+    const { data } = await axios.get(`${baseUrl}/users?id=${userInfoFromLocalStorage.data?._id}`, config);
     console.log(data, "data");
     //if we get here, then request is a success case
     dispatch({
@@ -169,7 +169,7 @@ export const getUsersAction = () => async (dispatch, state) => {
   }
 };
 
-export const getUserAction = (userId) => async (dispatch, state) => {
+export const getUserAction = (id) => async (dispatch, state) => {
   const {
     loggedInUser: { user },
   } = state();
@@ -185,7 +185,7 @@ export const getUserAction = (userId) => async (dispatch, state) => {
       type: GET_USER_REQUEST,
     });
     // make the call
-    const { data } = await axios.get(`${baseUrl}/users/${userId}`, config);
+    const { data } = await axios.get(`${baseUrl}/users/${id}`, config);
     console.log(data, "data");
     //if we get here, then request is a success case
     dispatch({

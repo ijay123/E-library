@@ -17,3 +17,8 @@ export const getUserSchema = Joi.object({
   username: Joi.string().optional(),
   email: Joi.string().optional(),
 });
+
+export const getUsersSchema = Joi.object({
+  username: Joi.string().optional(),
+  email: Joi.string().optional(),
+});

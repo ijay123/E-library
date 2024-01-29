@@ -124,7 +124,7 @@ export const loginUserReducer = (
 
 export const getUsersReducer = (
   state = {
-    user: null,
+    users: null,
     loading: false,
     error: null,
     success: false,
@@ -143,14 +143,14 @@ export const getUsersReducer = (
         ...state,
         loading: false,
         success: true,
-        user: action.payload,
+        users: action.payload,
       };
 
     case GET_USERS_RESET:
       return {
         loading: false,
         success: false,
-        user: null,
+        users: null,
         error: null,
       };
 

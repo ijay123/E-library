@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const SideNav = () => {
   return (
@@ -9,11 +9,17 @@ const SideNav = () => {
 
       <p className="mb-[30px] text-[#46d9b9]">Category</p>
 
-      <Link to={"createCategory"}>Create Category</Link>
+      <NavLink to={"createCategory"} >Create Category</NavLink>
 
-      <p className="mt-[70px] mb-[30px] text-[#46d9b9]">Books</p>
+      <p className=" flex flex-col mt-[70px] mb-[30px] text-[#46d9b9]">Books</p>
 
-      <Link to={"createBooks"}>Create Books</Link>
+      <NavLink className="mb-[20px]" to={"createBooks"}>Create Books</NavLink><br/>
+
+      <NavLink to={"allBooks"}>All Books</NavLink>
+
+      <p className="mt-[30px] text-[#46d9b9]">User</p>
+
+<NavLink to={"getUsers"} >Get Users</NavLink>
 
     </div>
   );

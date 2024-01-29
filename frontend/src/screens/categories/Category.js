@@ -15,7 +15,7 @@ const Category = () => {
           <Link to={"fairy"}>Fairy tale</Link>
         </span>
         <span>
-          <Link to={"classic"}>Classic</Link>
+          <Link to={"history"}>Classic</Link>
         </span>
         <span>
           <Link to={"crime"}>Crime story</Link>

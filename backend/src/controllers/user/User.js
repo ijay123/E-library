@@ -94,7 +94,7 @@ async function ComparePassword(plainPassword, hashedPassword) {
 }
 
 const getUsers = async (req, res) => {
-  //import the db model and create the user
+
   const getUser = await User.find({});
 
   res.status(httpStatus.OK).json({
@@ -105,7 +105,7 @@ const getUsers = async (req, res) => {
 
 const getUser = async (req, res) => {
   const id = req.params.id;
-  // const type = req.query.type;
+  const type = req.query.type;
   const email = req.query.email;
   const username = req.query.username;
   const avatar = req.query.avatar;
@@ -156,15 +156,15 @@ const getUser = async (req, res) => {
         break;
       }
 
-      case "AVATAR":
-        user = await User.findOne({ avatar: avatar });
-        if (!user) {
-          res.status(httpStatus.NOT_FOUND).json({
-            status: "error",
-            message: "User with avatar not found",
-          });
-          break;
-        }
+    case "AVATAR":
+      user = await User.findOne({ avatar: avatar });
+      if (!user) {
+        res.status(httpStatus.NOT_FOUND).json({
+          status: "error",
+          message: "User with avatar not found",
+        });
+        break;
+      }
 
       res.status(httpStatus.OK).json({
         status: "success",

@@ -22,7 +22,9 @@ import Science from "../screens/categories/sub-categories/Science";
 import Horror from "../screens/categories/sub-categories/Horror";
 import Fairy from "../screens/categories/sub-categories/Fairy";
 import Crime from "../screens/categories/sub-categories/Crime";
-import Classic from "../screens/categories/sub-categories/Classic";
+import History from "../screens/categories/sub-categories/History";
+import AllBooks from "../adminScreens/main/books/AllBooks";
+import Users from "../adminScreens/main/users/Users";
 
 const Rout = () => {
   return (
@@ -45,7 +47,7 @@ const Rout = () => {
         }
       >
         <Route path="science" element={<Science />} />
-        <Route path="classic" element={<Classic />} />
+        <Route path="history" element={<History />} />
         <Route path="crime" element={<Crime />} />
         <Route path="fairy" element={<Fairy />} />
         <Route path="horror" element={<Horror />} />
@@ -99,6 +101,22 @@ const Rout = () => {
           element={
             <AdminLayout>
               <AdminBooks />
+            </AdminLayout>
+          }
+        />
+           <Route
+          path="allBooks"
+          element={
+            <AdminLayout>
+              <AllBooks />
+            </AdminLayout>
+          }
+        />
+             <Route
+          path="getUsers"
+          element={
+            <AdminLayout>
+              <Users />
             </AdminLayout>
           }
         />
