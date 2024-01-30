@@ -3,7 +3,7 @@ import {
   createUserSchema,
   loginUserSchema,
   getUserSchema,
-  getUsersSchema
+  getUsersSchema,
 } from "../controllers/user/UserSchema.js";
 import { validationMiddleware } from "../middlewares/validation.js";
 const router = express.Router();
@@ -22,7 +22,7 @@ import { upload } from "../util/multer.js";
 router
   .route("/")
   .post(validationMiddleware(createUserSchema), createUser)
-  .get(verifyUser, validationMiddleware(getUsersSchema), getUsers);
+  .get(verifyUser, getUsers);
 router
   .route("/login")
   .post(validationMiddleware(loginUserSchema), loginUser)
@@ -37,11 +37,11 @@ router
   .patch(updateUser)
   .delete(deleteUser);
 
-  // router
-  // .route("/:id")
-  // .get(verifyUser, validationMiddleware(getUserSchema, "QUERY"), getUser)
-  // .patch(updateUser)
-  // .delete(deleteUser);
+// router
+// .route("/:id")
+// .get(verifyUser, validationMiddleware(getUserSchema, "QUERY"), getUser)
+// .patch(updateUser)
+// .delete(deleteUser);
 
 // middleware sits between the request and controller
 

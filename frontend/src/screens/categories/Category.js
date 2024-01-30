@@ -4,24 +4,24 @@ import { Outlet } from "react-router-dom";
 
 const Category = () => {
   return (
-    <div className="pt-[120px] bg-[#e7e1e1]">
+    <div className="pt-[120px] bg-[#959393]">
       <p className="text-[60px] text-[red] text-center">Category of Books</p>
 
       <div className="flex text-center items-center justify-center gap-[50px] text-[28px] mt-[50px] text-[grey]">
         <span>
-          <Link to={"science"}>Science fiction</Link>
+          <Link to={"science"} className="focus:text-[red]">Science fiction</Link>
         </span>
         <span>
-          <Link to={"fairy"}>Fairy tale</Link>
+          <Link to={"fairy"} className="focus:text-[red]">Love and Romance</Link>
         </span>
         <span>
-          <Link to={"history"}>Classic</Link>
+          <Link to={"history"} className="focus:text-[red]">History</Link>
         </span>
         <span>
-          <Link to={"crime"}>Crime story</Link>
+          <Link to={"crime"} className="focus:text-[red]">Crime story</Link>
         </span>
         <span>
-          <Link to={"horror"}>Horror</Link>
+          <Link to={"politics"} className="focus:text-[red]">Politics</Link>
         </span>
       </div>
       <Outlet/>

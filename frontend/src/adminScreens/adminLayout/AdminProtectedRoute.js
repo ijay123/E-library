@@ -11,7 +11,6 @@ export const AdminProtectedRoute = ({ children }) => {
   }
 
   const {
-    success,
     user: { data },
   } = loginUser;
   console.log(data.role, "role protectedroute");

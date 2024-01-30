@@ -10,26 +10,46 @@ const History = () => {
     getCategories: { categories },
   } = useSelector((state) => state);
 
-  console.log(books, "books");
+  console.log(books, "booksHistory");
   console.log(categories, "cat");
 
-  const filteredBooks = books.filter((book) =>
-    book.categoryId === categories._id ? book.categoryId : ""
-  );
-  console.log(filteredBooks, 'filter');
+  // Find the category for "History"
+  const historyCategory = Array.isArray(categories)
+    ? categories.find((cat) => cat.category === "History")
+    : "";
+
+  // Filter books by the "History" category
+  const filteredBooks = historyCategory
+    ? books.filter((book) => book.categoryId === historyCategory._id)
+    : [];
+
+  console.log(filteredBooks, "filter");
+
   useEffect(() => {
     dispatch(getBooksAction());
     dispatch(getCategoriesAction());
-    
   }, [dispatch]);
 
   return (
-    <div>
-      {filteredBooks.map((book) => (
-        <div key={book._id}>
-          <img src={book.bookImage} alt={`Cover of ${book.title}`} />
-        </div>
-      ))}
+    <div className="flex flex-wrap px-[70px] gap-[50px] justify-center pt-[160px]">
+      {filteredBooks &&
+        filteredBooks.map((book) => (
+          <div key={book._id} className="w-[200px] border text-[white] p-[5px]">
+            <img src={book.bookImage} alt={`Cover of ${book.title}`} />
+            <p>
+                <span className="text-[#a54b4b] text-[20px]">Author(s):</span>{" "}
+                {book.author}
+              </p>
+              <p>
+                <span className="text-[#a54b4b] text-[20px]">Title: </span>
+                {book.title}
+              </p>
+              <div className="flex gap-[10px]">
+                <button className="border p-[10px] bg-[#2e5c2e]">About Book</button>
+                <a href={book.bookPDF}><button className="border p-[10px] bg-[#2e5c2e]">Read</button></a>
+              </div>
+          </div>
+        ))}
     </div>
   );
 };

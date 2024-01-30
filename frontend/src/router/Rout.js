@@ -19,8 +19,8 @@ import AdminBooks from "../adminScreens/main/books/Books";
 import AdminCategory from "../adminScreens/main/category/Category";
 import AdminHome from "../adminScreens/adminHome/AdminHome";
 import Science from "../screens/categories/sub-categories/Science";
-import Horror from "../screens/categories/sub-categories/Horror";
-import Fairy from "../screens/categories/sub-categories/Fairy";
+import Politics from "../screens/categories/sub-categories/Politics";
+import Romance from "../screens/categories/sub-categories/Romance";
 import Crime from "../screens/categories/sub-categories/Crime";
 import History from "../screens/categories/sub-categories/History";
 import AllBooks from "../adminScreens/main/books/AllBooks";
@@ -49,8 +49,8 @@ const Rout = () => {
         <Route path="science" element={<Science />} />
         <Route path="history" element={<History />} />
         <Route path="crime" element={<Crime />} />
-        <Route path="fairy" element={<Fairy />} />
-        <Route path="horror" element={<Horror />} />
+        <Route path="fairy" element={<Romance />} />
+        <Route path="politics" element={<Politics />} />
       </Route>
 
       <Route
