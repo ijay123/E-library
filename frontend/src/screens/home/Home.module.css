@@ -25,6 +25,7 @@
   font-family: "Times New Roman", Times, serif;
 }
 
+
 .icon1 {
   cursor: pointer;
   position: absolute;
@@ -87,14 +88,18 @@
 
 .explore {
   font-size: 50px;
-  color: rgba(230, 52, 52, 0.854);
-  margin-top: 100px;
+  color: rgb(151, 29, 29);
+
+  margin-top: 130px;
+  padding-top: 80px;
   margin-left: 200px;
 }
 
 .book {
-  display: flex;
+  border: 1px solid white;
+  padding: 5px;
   width: 200px;
+  color: white;
 }
 .main {
   display: flex;
@@ -118,27 +123,40 @@
   margin-bottom: 150px;
 }
 .cat {
-  width: 350px;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
+
 .cat1 {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
+ padding-left: 100px;
+ padding-right: 100px;
+ padding-bottom: 40px;
+ padding-top: 80px;
+  margin: auto;
+ 
   gap: 50px;
   margin-left: 40px;
   margin-right: 40px;
 }
 .ecat {
   font-size: 50px;
-  color: rgba(230, 52, 52, 0.854);
+  color: rgb(151, 29, 29);
   margin-left: 180px;
   margin-bottom: 50px;
 }
 .tex {
-  color: grey;
+  color: rgb(188, 91, 107);
   font-size: 20px;
   margin-top: 20px;
+  margin-bottom: 20px;
+  background-color: white;
 }
 
 @media screen and (max-width: 700px) {

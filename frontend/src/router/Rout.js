@@ -9,6 +9,8 @@ import Signup from "../screens/signup/Signup";
 import Layout from "../components/defaultLayout/layout/Layout";
 import NotFound from "../components/defaultLayout/not_found/NotFound";
 import Login from "../screens/login/Login";
+import AboutBook from "../screens/books/AboutBook";
+import Contact from "../screens/contact/Contact";
 
 // admin imports
 
@@ -19,9 +21,9 @@ import AdminBooks from "../adminScreens/main/books/Books";
 import AdminCategory from "../adminScreens/main/category/Category";
 import AdminHome from "../adminScreens/adminHome/AdminHome";
 import Science from "../screens/categories/sub-categories/Science";
-import Politics from "../screens/categories/sub-categories/Politics";
+import Politics from "../screens/categories/sub-categories/PoliticsCat";
 import Romance from "../screens/categories/sub-categories/Romance";
-import Crime from "../screens/categories/sub-categories/Crime";
+import Kids from "../screens/categories/sub-categories/Kids";
 import History from "../screens/categories/sub-categories/History";
 import AllBooks from "../adminScreens/main/books/AllBooks";
 import Users from "../adminScreens/main/users/Users";
@@ -46,9 +48,10 @@ const Rout = () => {
           </Layout>
         }
       >
+        <Route index element={<Navigate to="science" replace />} />
         <Route path="science" element={<Science />} />
         <Route path="history" element={<History />} />
-        <Route path="crime" element={<Crime />} />
+        <Route path="kids" element={<Kids />} />
         <Route path="fairy" element={<Romance />} />
         <Route path="politics" element={<Politics />} />
       </Route>
@@ -62,10 +65,29 @@ const Rout = () => {
         }
       />
       <Route
+        path="/aboutBook/:books_id"
+        element={
+          <layout>
+            <AboutBook />
+          </layout>
+        }
+      />
+
+      <Route
         path="/about"
         element={
           <Layout>
             <About />
+          </Layout>
+        }
+      />
+
+
+<Route
+        path="/contact"
+        element={
+          <Layout>
+            <Contact />
           </Layout>
         }
       />
@@ -104,7 +126,7 @@ const Rout = () => {
             </AdminLayout>
           }
         />
-           <Route
+        <Route
           path="allBooks"
           element={
             <AdminLayout>
@@ -112,7 +134,7 @@ const Rout = () => {
             </AdminLayout>
           }
         />
-             <Route
+        <Route
           path="getUsers"
           element={
             <AdminLayout>

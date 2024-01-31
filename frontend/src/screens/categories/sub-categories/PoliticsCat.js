@@ -1,21 +1,21 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getBooksAction } from "../../../redux/action/books";
 import { getCategoriesAction } from "../../../redux/action/category";
+import { getBooksAction } from "../../../redux/action/books";
 
-const History = () => {
+const Politics = () => {
   const dispatch = useDispatch();
   const {
     getBooks: { books },
     getCategories: { categories },
   } = useSelector((state) => state);
 
-  console.log(books, "booksHistory");
+  console.log(books, "booksPolitics");
   console.log(categories, "cat");
 
   // Find the category for "History"
   const historyCategory = Array.isArray(categories)
-    ? categories.find((cat) => cat.category === "History")
+    ? categories.find((cat) => cat.category === "Politics")
     : "";
 
   // Filter books by the "History" category
@@ -32,7 +32,7 @@ const History = () => {
 
   return (
     <>
-    <div className="flex flex-wrap px-[70px] gap-[50px] items-center justify-center pt-[160px]">
+     <div className="flex flex-wrap px-[70px] gap-[50px] items-center justify-center pt-[160px] pb-[150px]">
       {filteredBooks &&
         filteredBooks.map((book) => (
           <div key={book._id} className="w-[200px] border text-[white] p-[5px]">
@@ -51,21 +51,16 @@ const History = () => {
               </div>
           </div>
         ))}
-      
     </div>
     <div>
-      <img src="/images/black-history-month.png" className="w-[100px] absolute top-[290px] left-[110px] animate-bounce" alt=""/>
-      <img src="/images/parchment.png" className="w-[100px] absolute top-[200px] right-[110px] animate-bounce" alt=""/>
-      <img src="/images/black-history-month2.png" className="w-[100px] absolute top-[350px] left-[900px] animate-bounce" alt=""/>
-      <img src="/images/indian.png" className="w-[100px] absolute top-[1090px] left-[50px] animate-bounce" alt=""/>
-      <img src="/images/black-history-month4.png" className="w-[100px] absolute top-[1500px] right-[50px] animate-bounce" alt=""/>
-    
-
-     
+    <img src="/images/news-politics.png" className="w-[100px] absolute top-[300px] right-[50px] animate-bounce" alt=""/>
+    <img src="/images/news.png" className="w-[100px] absolute top-[300px] left-[180px] animate-bounce" alt=""/>
+    <img src="/images/news2.png" className="w-[100px] absolute top-[1000px] right-[50px] animate-bounce" alt=""/>
+    <img src="/images/news3.png" className="w-[100px] absolute top-[1250px] left-[50px] animate-bounce" alt=""/>
     </div>
     </>
-    
+   
   );
 };
 
-export default History;
+export default Politics;

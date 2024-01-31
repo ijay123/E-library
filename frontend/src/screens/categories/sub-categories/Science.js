@@ -31,12 +31,14 @@ const Science = () => {
   }, [dispatch]);
 
   return (
-    <div className="flex flex-wrap px-[70px] gap-[50px] justify-center pt-[160px]">
+    <>
+    
+    <div className="flex flex-wrap px-[70px] gap-[50px] items-center justify-center pt-[160px]">
       {filteredBooks &&
         filteredBooks.map((book) => (
           <div
             key={book._id}
-            className="w-[200px] text-[white] border-white p-[5px]"
+            className="w-[200px] text-[white] border  p-[5px]"
           >
             <img src={book.bookImage} alt={`Cover of ${book.title}`} />
             <p>
@@ -58,6 +60,18 @@ const Science = () => {
           </div>
         ))}
     </div>
+    <div>
+      <img src="/images/laser-gun.png" alt="" className="w-[100px] absolute top-[350px] left-[70px] animate-bounce"/>
+    <img src="/images/space.png" alt="" className="w-[100px] absolute top-[240px] right-[70px] animate-bounce"/>
+    <img src="/images/laser-gun2.png" alt="" className="w-[100px] absolute top-[980px] right-[700px] animate-bounce"/>
+    <img src="/images/laser-gun3.png" alt="" className="w-[100px] absolute top-[1500px] right-[40px] animate-bounce"/>
+    <img src="/images/sci-fi.png" alt="" className="w-[100px] absolute top-[1900px] left-[40px] animate-bounce"/>
+  
+    </div>
+    
+   
+    </>
+   
   );
 };
 

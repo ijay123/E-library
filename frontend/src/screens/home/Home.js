@@ -7,16 +7,21 @@ import catData from "../../data/database/categoryData";
 import { useDispatch, useSelector } from "react-redux";
 import { getBooksAction } from "../../redux/action/books";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const dispatch = useDispatch();
   const {
     getBooks: { books },
-    getCategories: { categories },
+  
   } = useSelector((state) => state);
 
   console.log(books, "books");
+  const navigate = useNavigate();
 
+  const handleNavigate = (url) => {
+    navigate(`/category/${url}`);
+  };
   useEffect(() => {
     dispatch(getBooksAction());
   }, [dispatch]);
@@ -40,29 +45,62 @@ const Home = () => {
       </div>{" "}
       <Snowfall color="blue" snowflakeCount={60} />
       <Snowfall color="red" snowflakeCount={60} />
-      <p className={styles.explore}>Explore our books</p>
-      <div className={styles.main}>
-        {books &&
-          books.slice(0, 4).map((books, id) => (
-            <div className={styles.book} key={id}>
-              <img src={books.bookImage} alt="" />
-            </div>
-          ))}
-      </div>
-     <Link to={'/books'}> <button className={styles.more}>More</button></Link>
-      {/* categories */}
-      <div>
-        <p className={styles.ecat}> Explore The Categories</p>
-
-        <div className={styles.cat1}>
-          {catData.map((cat) => (
-            <div className={styles.cat}>
-              <img src={cat.catImg} alt="" />
-              <p className={styles.tex}>{cat.text}</p>
-            </div>
-          ))}
+      {/* body section */}
+      <div className="bg-gradient-to-r from-[#2c2c2c] to-white pb-[100px]">
+        <p className={styles.explore}>Explore our books</p>
+        <div className={styles.main}>
+          {books &&
+            books.slice(0, 4).map((books, id) => (
+              <div className={styles.book} key={id}>
+                <img src={books.bookImage} alt="" />
+                <p>
+                  <span className="text-[#a54b4b] text-[20px]">Author(s):</span>{" "}
+                  {books.author}
+                </p>
+                <p>
+                  <span className="text-[#a54b4b] text-[20px]">Title: </span>
+                  {books.title}
+                </p>
+                <div className="flex gap-[10px]">
+                  <button className="border p-[10px] bg-[#2e5c2e] text-white">
+                    About Book
+                  </button>
+                  <a href={books.bookPDF}>
+                    <button className="border p-[10px] bg-[#2e5c2e] text-white">
+                      Read
+                    </button>
+                  </a>
+                </div>
+              </div>
+            ))}
+          <p></p>
         </div>
-        <button className={styles.more}>More</button>
+        <Link to={"/books"}>
+          {" "}
+          <button className={styles.more}>All Books</button>
+        </Link>
+        {/* categories */}
+        <div>
+          <p className={styles.ecat}> Explore The Categories</p>
+
+          <div className={styles.cat1}>
+            {catData.map((cat) => (
+              <div className={styles.cat}>
+                <img src={cat.catImg} className='w-[190px]' alt="" />
+                <i><p className={styles.tex}>{cat.text}</p></i>
+                <button
+                  onClick={() => handleNavigate(cat.url)}
+                  className="border p-[7px] text-[#723030] bg-[#9d9999] w-[120px] rounded-[5px]"
+                >
+                {cat.url}
+                </button>
+              </div>
+            ))}
+          </div>
+          <Link to={"/category"}>
+            <button className={styles.more}>More</button>
+          </Link>
+        </div>
       </div>
     </>
   );

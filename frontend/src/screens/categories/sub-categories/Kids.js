@@ -3,19 +3,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCategoriesAction } from "../../../redux/action/category";
 import { getBooksAction } from "../../../redux/action/books";
 
-const Politics = () => {
+const Kids = () => {
   const dispatch = useDispatch();
   const {
     getBooks: { books },
     getCategories: { categories },
   } = useSelector((state) => state);
 
-  console.log(books, "booksPolitics");
+  console.log(books, "booksKids");
   console.log(categories, "cat");
 
   // Find the category for "History"
   const historyCategory = Array.isArray(categories)
-    ? categories.find((cat) => cat.category === "Politics")
+    ? categories.find((cat) => cat.category === "Kids")
     : "";
 
   // Filter books by the "History" category
@@ -31,7 +31,9 @@ const Politics = () => {
   }, [dispatch]);
 
   return (
-    <div className="flex flex-wrap px-[70px] gap-[50px] justify-center pt-[160px]">
+    <>
+    
+    <div className="flex flex-wrap px-[70px] gap-[50px] items-center justify-center pt-[160px]">
       {filteredBooks &&
         filteredBooks.map((book) => (
           <div key={book._id} className="w-[200px] border text-[white] p-[5px]">
@@ -51,7 +53,16 @@ const Politics = () => {
           </div>
         ))}
     </div>
+    <div>
+      <img src="/images/car-toy.png" className='w-[100px] absolute top-[1000px] left-[40px] animate-bounce' alt=""/>
+      <img src="/images/world-children-day.png" className='w-[100px] absolute top-[200px] left-[70px] animate-bounce' alt=""/>
+      <img src="/images/kindergarten.png" className='w-[100px] absolute top-[250px] right-[70px] animate-bounce' alt=""/>
+      <img src="/images/bookk.png" className='w-[100px] absolute top-[1200px] right-[70px] animate-bounce' alt=""/>
+    </div>
+
+    </>
+ 
   );
 };
 
-export default Politics;
+export default Kids;

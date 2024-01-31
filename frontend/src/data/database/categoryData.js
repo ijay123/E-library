@@ -1,38 +1,41 @@
-import scienceImg from '../database/scienceImg.jpg'
+import scifi from "../database/sci-fi.png";
 
+import politics from "../database/news-politics.png";
+import children from "../database/world-children-day.png";
+import romance from "../database/kiss.png";
+import history from "../database/black-history-month2.png";
 
 const catData = [
-{
+  {
     id: 1,
-catImg: scienceImg,
-text: "Science"
-},
-{
+    catImg: scifi,
+    text: "'Science never solves a problem without creating ten more.'",
+    url: "science",
+  },
+  {
     id: 2,
-catImg: scienceImg,
-text: "Politics"
-},
-{
+    catImg: politics,
+    text: "'If voting changed anything, they'd make it illegal'",
+    url: "politics",
+  },
+  {
     id: 3,
-catImg: scienceImg,
-text: "Kids"
-},
-{
+    catImg: children,
+    text: "'Spreading happiness one cuddle at a time'",
+    url: "kids",
+  },
+  {
     id: 4,
-catImg: scienceImg,
-text: "Romance"
-},
-{
+    catImg: romance,
+    text: "'Love is like the wind, you cannot see it but you can feel it'",
+    url: "fairy",
+  },
+  {
     id: 5,
-catImg: scienceImg,
-text: "Entertainment"
-},
-{
-    id: 6,
-catImg: scienceImg,
-text: "Academics"
-},
-
+    catImg: history,
+    text: "'Those who do not remember the past are condemned to repeat it.'",
+    url: "history",
+  },
 ];
 
 export default catData;

@@ -31,6 +31,7 @@ const Navigation = () => {
         <Link to={"/books"}>Books</Link>
         <Link to={"/category"}>Category</Link>
         <Link to={"/about"}>About Us</Link>
+        <Link to={"/contact"}>Contact</Link>
       </div>
       <div className={styles.left}>
         <input placeholder="Search" />

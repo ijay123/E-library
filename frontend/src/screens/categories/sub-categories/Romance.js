@@ -31,6 +31,7 @@ const Romance = () => {
   }, [dispatch]);
 
   return (
+    <>
     <div className="flex flex-wrap px-[70px] gap-[50px] items-center justify-center pt-[160px]">
       {filteredBooks &&
         filteredBooks.map((book) => (
@@ -51,6 +52,16 @@ const Romance = () => {
           </div>
         ))}
     </div>
+    <div className="">
+    <img src="/images/balloons.png" className="w-[130px] absolute top-[200px] left-[50px] animate-bounce" alt=""/>
+
+    <img src="/images/kiss.png" className="w-[130px] absolute top-[250px] right-[50px] animate-bounce" alt=""/>
+    <img src="/images/gift.png" className="w-[130px] absolute top-[350px] right-[650px] animate-bounce" alt=""/>
+    <img src="/images/bouquet.png" className="w-[130px] absolute top-[1050px] right-[50px] animate-bounce" alt=""/>
+    </div>
+
+    </>
+    
   );
 };
 

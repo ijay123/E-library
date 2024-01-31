@@ -12,6 +12,11 @@ import {
   GET_BOOKS_REQUEST,
   GET_BOOKS_RESET,
   GET_BOOKS_SUCCESS,
+  GET_BOOK_CLEAR_ERROR,
+  GET_BOOK_ERROR,
+  GET_BOOK_REQUEST,
+  GET_BOOK_RESET,
+  GET_BOOK_SUCCESS,
 } from "../constants/books";
 
 export const registerBookReducer = (
@@ -124,6 +129,51 @@ export const getBooksReducer = (
       };
 
     case GET_BOOKS_ERROR:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+
+    default:
+      return state;
+  }
+};
+
+export const getBookReducer = (
+  state = { book: null, loading: false, error: null, success: false },
+  action
+) => {
+  switch (action.type) {
+    case GET_BOOK_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+
+    case GET_BOOK_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        success: true,
+        book: action.payload,
+      };
+
+    case GET_BOOK_RESET:
+      return {
+        loading: false,
+        success: false,
+        book: null,
+        error: null,
+      };
+
+    case GET_BOOK_CLEAR_ERROR:
+      return {
+        ...state,
+        error: null,
+      };
+
+    case GET_BOOK_ERROR:
       return {
         ...state,
         loading: false,

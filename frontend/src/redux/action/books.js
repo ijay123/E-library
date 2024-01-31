@@ -10,6 +10,9 @@ import {
   GET_BOOKS_ERROR,
   GET_BOOKS_REQUEST,
   GET_BOOKS_SUCCESS,
+  GET_BOOK_ERROR,
+  GET_BOOK_REQUEST,
+  GET_BOOK_SUCCESS,
 } from "../constants/books";
 
 const userInfoFromLocalStorage = localStorage.getItem("libraryUserInfo")
@@ -130,6 +133,45 @@ export const getBooksAction = () => async (dispatch, state) => {
     // }
     dispatch({
       type: GET_BOOKS_ERROR,
+      payload: message,
+    });
+  }
+};
+
+
+export const getBookAction = (id) => async (dispatch, state) => {
+  const {
+    loggedInUser: { user },
+  } = state();
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${user.token}`,
+    },
+  };
+  try {
+    console.log(dispatch, "dispatch");
+    dispatch({
+      type: GET_BOOK_REQUEST,
+    });
+    // make the call
+    const { data } = await axios.get(`${baseUrl}/users/${id}`, config);
+    console.log(data, "data");
+    //if we get here, then request is a success case
+    dispatch({
+      type: GET_BOOK_SUCCESS,
+      payload: data.payload,
+    });
+  } catch (error) {
+    let message =
+      error.response && error.response.data.errors
+        ? error.response.data.errors.join(",")
+        : error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    console.log(message, "error");
+    dispatch({
+      type: GET_BOOK_ERROR,
       payload: message,
     });
   }
