@@ -81,6 +81,7 @@ const Login = () => {
         <img src={loginImg1} alt="" />
       </div>
       <div className={styles.main2}>
+      <div className="font-thin float-right"><img src="/images/book4.png" className="w-[40px]" alt=""/>E-Library</div>
         <form className={styles.form}>
         <p className="text-[30px] font-bold pb-[40px]">Login Into Account</p>
           <p>EMAIL</p>

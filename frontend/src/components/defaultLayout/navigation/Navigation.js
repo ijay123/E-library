@@ -25,7 +25,7 @@ const Navigation = () => {
 
   return (
     <div className={styles.nav}>
-      <div>LOGO</div>
+      <div className="font-thin"><img src="/images/book4.png" className="w-[40px]" alt=""/>E-Library</div>
       <div className={styles.main}>
         <Link to={"/home"}>Home</Link>
         <Link to={"/books"}>Books</Link>

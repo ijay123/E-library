@@ -110,6 +110,7 @@ const Rout = () => {
           </AdminLayout>
         }
       >
+         <Route index element={<Navigate to="createCategory" replace />} />
         <Route
           path="createCategory"
           element={
