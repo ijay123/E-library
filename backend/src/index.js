@@ -45,7 +45,12 @@ app.get("/", (req, res) => {
     message: "Welcome To library management server",
   });
 });
-
+app.post("/", (req, res) => {
+  res.status(httpStatus.OK).json({
+    status: "success",
+    message: "Welcome To library management server",
+  });
+});
 // we use req.body for post
 
 app.all("*", (req, res) => {
