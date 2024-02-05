@@ -14,20 +14,19 @@ import BookRouter from "./router/bookList.js";
 
 import UserRoute from "./router/user.js";
 
-
 const app = express();
 const { NODE_ENV, PORT } = process.env;
 
 // app general use
 
 const corsOptions = {
-  origin: 'https://e-library-frontend-kgr0.onrender.com',
+  origin: "https://e-library-frontend-kgr0.onrender.com",
 };
 app.use(cors(corsOptions));
 
 app.use(express.json());
 app.use(helmet());
-app.use(express.static("public"))
+app.use(express.static("public"));
 
 if (NODE_ENV === "development") {
   app.use(morgan("dev"));
@@ -38,7 +37,6 @@ app.use("/users", UserRoute);
 app.use("/categories", CategoryRouter);
 app.use("/books", BookRouter);
 
-
 app.get("/", (req, res) => {
   res.status(httpStatus.OK).json({
     status: "success",
@@ -46,13 +44,13 @@ app.get("/", (req, res) => {
   });
 });
 
-app.post('/login', (req, res) => {
+app.post("/login", (req, res) => {
   // Your login logic here
-  res.status(200).json({ message: 'Login successful' });
+  res.status(httpStatus.OK).json({
+    status: "success",
+    message: "Login successful",
+  });
 });
-
-
-
 
 // we use req.body for post
 
