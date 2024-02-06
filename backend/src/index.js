@@ -19,10 +19,10 @@ const { NODE_ENV, PORT } = process.env;
 
 // app general use
 
-const corsOptions = {
-  origin: "https://e-library-frontend-kgr0.onrender.com",
-};
-app.use(cors(corsOptions));
+// const corsOptions = {
+//   origin: "https://e-library-frontend-kgr0.onrender.com",
+// };
+app.use(cors());
 
 app.use(express.json());
 app.use(helmet());
