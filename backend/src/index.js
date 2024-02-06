@@ -44,13 +44,7 @@ app.get("/", (req, res) => {
   });
 });
 
-app.post("/login", (req, res) => {
-  // Your login logic here
-  res.status(httpStatus.OK).json({
-    status: "success",
-    message: "Login successful",
-  });
-});
+
 
 // we use req.body for post
 
