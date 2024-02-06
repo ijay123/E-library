@@ -17,7 +17,7 @@ import {
 } from "../constants/user";
 import { toast } from "react-toastify";
 
-const baseUrl = "http://localhost:6600";
+const baseUrl = "https://e-library-backend-gy7e.onrender.com";
 
 const userInfoFromLocalStorage = localStorage.getItem("libraryUserInfo")
   ? JSON.parse(localStorage.getItem("libraryUserInfo"))
