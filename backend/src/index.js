@@ -44,8 +44,6 @@ app.get("/", (req, res) => {
   });
 });
 
-
-
 // we use req.body for post
 
 app.all("*", (req, res) => {

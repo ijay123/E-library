@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
+
 import {
   CREATE_CATEGORY_RESET,
   CREATE_CATEGORY_CLEAR_ERROR,

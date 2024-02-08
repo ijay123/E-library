@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategoriesAction } from "../../../redux/action/category";
 import { getBooksAction } from "../../../redux/action/books";
+import { Link } from "react-router-dom";
 
 const Romance = () => {
   const dispatch = useDispatch();
@@ -46,7 +47,7 @@ const Romance = () => {
                 {book.title}
               </p>
               <div className="flex gap-[10px]">
-                <button className="border p-[10px] bg-[#2e5c2e]">About Book</button>
+              <Link to={`/aboutBook/${book._id}`}><button className="border p-[10px] bg-[#2e5c2e]">About Book</button></Link>
                 <a href={book.bookPDF}><button className="border p-[10px] bg-[#2e5c2e]">Read</button></a>
               </div>
           </div>

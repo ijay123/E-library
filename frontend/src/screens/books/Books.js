@@ -34,7 +34,7 @@ const Books = () => {
                 {books.title}
               </p>
               <div className="flex gap-[10px]">
-                <Link to={`/aboutBook/:${books._id}`}>
+                <Link to={`/aboutBook/${books._id}`}>
                   <button className="border p-[10px] bg-[#2e5c2e]">
                     About Book
                   </button>

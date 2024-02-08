@@ -20,6 +20,7 @@ import Dashboard from "../adminScreens/dashboard/Dashboard";
 import AdminBooks from "../adminScreens/main/books/Books";
 import AdminCategory from "../adminScreens/main/category/Category";
 import AdminHome from "../adminScreens/adminHome/AdminHome";
+import EditPage from "../adminScreens/main/books/EditPage";
 import Science from "../screens/categories/sub-categories/Science";
 import Politics from "../screens/categories/sub-categories/PoliticsCat";
 import Romance from "../screens/categories/sub-categories/Romance";
@@ -65,11 +66,11 @@ const Rout = () => {
         }
       />
       <Route
-        path="/aboutBook/:books_id"
+        path="/aboutBook/:id"
         element={
-          <layout>
+          <Layout>
             <AboutBook />
-          </layout>
+          </Layout>
         }
       />
 
@@ -102,6 +103,14 @@ const Rout = () => {
           </AdminProtectedRoute>
         }
       />
+         <Route
+        path="/editPage/:id"
+        element={
+          <AdminLayout>
+            <EditPage />
+          </AdminLayout>
+        }
+      />
       <Route
         path="/adminHome"
         element={
@@ -110,6 +119,7 @@ const Rout = () => {
           </AdminLayout>
         }
       >
+        
          <Route index element={<Navigate to="createCategory" replace />} />
         <Route
           path="createCategory"

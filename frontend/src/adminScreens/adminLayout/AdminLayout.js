@@ -1,7 +1,7 @@
 import React from "react";
 import AdminNavigation from "../navigation/Navigation";
 
-import Footer from "../../components/defaultLayout/footer/Footer";
+
 
 const AdminLayout = ({ children }) => {
   return (
@@ -10,7 +10,7 @@ const AdminLayout = ({ children }) => {
    
       <div>{children}</div>
 
-      <Footer />
+
     </div>
   );
 };

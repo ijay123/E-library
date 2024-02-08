@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getBooksAction } from "../../../redux/action/books";
+import { Link } from "react-router-dom";
 
 const AllBooks = () => {
   const dispatch = useDispatch();
@@ -35,6 +36,7 @@ const AllBooks = () => {
               <td className="border-r-8 ">{book.title}</td>
               <td className="border-r-8 ">{book.author}</td>
               <td>{book.publisher}</td>
+              <td><Link to={`/editPage/${book._id}`}><button className="border bg-[green] text-[white]">Edit</button></Link></td>
               
             </tr>
           ))}
