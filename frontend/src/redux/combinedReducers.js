@@ -18,6 +18,8 @@ import {
   imageUploadReducer,
   getBooksReducer,
   getBookReducer,
+  updateBooksReducer,
+  deleteBooksReducer,
 } from "./reducers/books";
 
 export const combined = combineReducers({
@@ -33,4 +35,6 @@ export const combined = combineReducers({
   getBooks: getBooksReducer,
   getBook: getBookReducer,
   imageUpload: imageUploadReducer,
+  updateBook: updateBooksReducer,
+  deleteBook: deleteBooksReducer,
 });

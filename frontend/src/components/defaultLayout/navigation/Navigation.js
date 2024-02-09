@@ -3,7 +3,7 @@ import { CiUser } from "react-icons/ci";
 import { Link } from "react-router-dom";
 import styles from "./Navigation.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserAction } from "../../../redux/action/user";
+import { getUsersAction } from "../../../redux/action/user";
 
 const Navigation = () => {
   const dispatch = useDispatch();
@@ -13,19 +13,26 @@ const Navigation = () => {
     : null;
 
   const {
-    singleUser: { user },
+    allUsers: { users },
   } = useSelector((state) => state);
 
-  console.log(user, "user");
+  console.log(users, "users");
+
+
+  console.log(userInfoFromLocalStorage, "user from localStorage");
 
   useEffect(() => {
-    const userId = userInfoFromLocalStorage._id
-    dispatch(getUserAction(userId));
-  }, [dispatch]);
+  
+      dispatch(getUsersAction());
+
+  }, [dispatch, users]);
 
   return (
     <div className={styles.nav}>
-      <div className="font-thin"><img src="/images/book4.png" className="w-[40px]" alt=""/>E-Library</div>
+      <div className="font-thin">
+        <img src="/images/book4.png" className="w-[40px]" alt="" />
+        E-Library
+      </div>
       <div className={styles.main}>
         <Link to={"/home"}>Home</Link>
         <Link to={"/books"}>Books</Link>
@@ -39,8 +46,7 @@ const Navigation = () => {
         <Link to={"/"}>Signup</Link>
         <Link to={"/login"}>Login</Link>
         <div className={styles.profile}>
-    
-          <img src={userInfoFromLocalStorage.avatar} alt="" />
+          <img className="w-[35px] rounded-[50%]" src={userInfoFromLocalStorage?.data?.avatar} alt="User Avatar" />
         </div>
       </div>
       <div className={styles.menubar}>Menu</div>

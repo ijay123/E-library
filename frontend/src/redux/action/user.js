@@ -127,14 +127,14 @@ export const logout = () => async (dispatch, state) => {
 };
 
 export const getUsersAction = () => async (dispatch, state) => {
-  const {
-    loggedInUser: { user },
-  } = state();
+  // const {
+  //   loggedInUser: { user },
+  // } = state();
 
   const config = {
     headers: {
       "Content-Type": "application/json",
-      authorization: `Bearer ${user.token}`,
+      authorization: `Bearer ${userInfoFromLocalStorage.token}`,
     },
   };
   try {

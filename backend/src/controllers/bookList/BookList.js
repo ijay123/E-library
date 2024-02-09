@@ -44,37 +44,6 @@ const getBookLists = async (req, res) => {
   });
 };
 
-const updateBookList = async (req, res) => {
-  const { bookList } = req.body;
-  const { id } = req.params;
-  const foundBookList = await BookList.findOne({ _id: id });
-  if (!foundBookList) {
-    res.status(httpStatus.NOT_FOUND).json({
-      status: "error",
-      message: "Book not found",
-    });
-  }
-
-  const BookListExist = await BookList.findOne({ bookList: bookList });
-  if (BookListExist) {
-    res.status(httpStatus.NOT_FOUND).json({
-      status: "error",
-      message: "Book already exist",
-    });
-    return;
-  }
-  const updatedBookList = await BookList.findByIdAndUpdate(
-    id,
-    { bookList: bookList },
-    { new: true }
-  );
-
-  res.status(httpStatus.OK).json({
-    status: "success",
-    data: updatedBookList,
-  });
-};
-
 const getBookList = async (req, res) => {
   const { id } = req.params;
   console.log("here");
@@ -96,6 +65,50 @@ const getBookList = async (req, res) => {
     res.status(httpStatus.BAD_REQUEST).json({
       status: "error",
       payload: error.message,
+    });
+  }
+};
+
+const updateBookList = async (req, res) => {
+  const updateData = req.body; // Directly use the request body for update data
+  const { id } = req.params;
+
+  try {
+    const foundBookList = await BookList.findById(id);
+    if (!foundBookList) {
+      return res.status(httpStatus.NOT_FOUND).json({
+        status: "error",
+        message: "Book not found",
+      });
+    }
+
+    // Check if another book (other than the one being updated) has the same title
+    const existingBookList = await BookList.findOne({
+      _id: { $ne: id }, // Exclude the current book from the search
+      title: updateData.title, // Directly use `updateData.title`
+    });
+
+    if (existingBookList) {
+      return res.status(httpStatus.CONFLICT).json({
+        status: "error",
+        message: "Another book already exists with the same title",
+      });
+    }
+
+    // If no duplicates are found, proceed with the update
+    const updatedBookList = await BookList.findByIdAndUpdate(id, updateData, {
+      new: true,
+    });
+
+    res.status(httpStatus.OK).json({
+      status: "success",
+      data: updatedBookList,
+    });
+  } catch (error) {
+    res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
+      status: "error",
+      message: "An error occurred while updating the book list",
+      error: error.message,
     });
   }
 };

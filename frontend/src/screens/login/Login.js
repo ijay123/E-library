@@ -18,6 +18,7 @@ const Login = () => {
   const userInfoFromLocalStorage = localStorage.getItem("libraryUserInfo")
     ? JSON.parse(localStorage.getItem("libraryUserInfo"))
     : null;
+    console.log(user)
 
   const [value, setValue] = useState({
     password: "",
@@ -32,7 +33,7 @@ const Login = () => {
 
   useEffect(() => {
     if (success) {
-      toast.success(`You have successfully logged in, ${user.username}`);
+      toast.success(`You have successfully logged in, ${userInfoFromLocalStorage?.data?.username}`);
 
       const role = userInfoFromLocalStorage?.data?.role || ""; // Default to an empty string if role is not available
       console.log(role, "role");
@@ -64,6 +65,7 @@ const Login = () => {
     user,
     navigate,
     userInfoFromLocalStorage?.data?.role,
+    userInfoFromLocalStorage.username
   ]);
 
   async function LoginHandler() {

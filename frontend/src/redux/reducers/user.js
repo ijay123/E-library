@@ -174,7 +174,7 @@ export const getUsersReducer = (
 
 export const getUserReducer = (
   state = {
-    user: null,
+    user:{},
     loading: false,
     error: null,
     success: false,

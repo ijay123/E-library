@@ -1,23 +1,29 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
-import { getBooksAction } from "../../../redux/action/books";
+import { getBooksAction, deleteBookAction, updateBookAction } from "../../../redux/action/books";
 import { toast } from "react-toastify";
 import Spinner from "../../../Spinner/CustomSpinner";
 import { useParams } from "react-router-dom";
+import {
+  DELETE_BOOKS_RESET,
+  UPDATE_BOOKS_RESET,
+} from "../../../redux/constants/books";
 
 const EditPage = () => {
   const dispatch = useDispatch();
   const {
     getBooks: { books },
+    updateBook: { books: bookUpdate, success: updateSuccess },
+    deleteBook: { books: bookdelete, success: deleteSuccess },
   } = useSelector((state) => state);
 
-  console.log(books, 'editbooks')
+  console.log(books, "editbooks");
   const userInfoFromLocalStorage = localStorage.getItem("libraryUserInfo")
-  ? JSON.parse(localStorage.getItem("libraryUserInfo"))
-  : null;
+    ? JSON.parse(localStorage.getItem("libraryUserInfo"))
+    : null;
 
   const { id } = useParams();
+
   console.log(id, typeof id);
 
   const [formData, setFormData] = useState({
@@ -28,31 +34,39 @@ const EditPage = () => {
     categoryId: "",
     bookImage: "",
     bookPDF: "",
-    userId: userInfoFromLocalStorage?.data?._id,
+  
   });
 
   useEffect(() => {
-    if (!books) {
+    if (!books || books.length === 0) {
       dispatch(getBooksAction());
     } else {
       const singleBook = books.find((book) => book._id === id);
-      console.log(singleBook, 'singlebook')
+
+      console.log(singleBook, "singlebook");
       if (singleBook) {
         setFormData({
-          title: singleBook.title ,
-          author: singleBook.author ,
-          desc: singleBook.desc ,
+          title: singleBook.title,
+          author: singleBook.author,
+          desc: singleBook.desc,
           publisher: singleBook.publisher,
           categoryId: singleBook.categoryId,
           bookImage: singleBook.bookImage,
           bookPDF: singleBook.bookPDF,
-          userId: singleBook.userInfoFromLocalStorage?.data?._id,
+       
         });
       }
-      
     }
-    console.log(books, 'sbook')
-  }, [dispatch, books, id]);
+    if (updateSuccess) {
+      toast.success(`successfully updated book`);
+      dispatch({ type: UPDATE_BOOKS_RESET });
+    }
+
+    if (deleteSuccess) {
+      toast.success(`successfully delete book`);
+      dispatch({ type: DELETE_BOOKS_RESET });
+    }
+  }, [dispatch, books, id, updateSuccess, deleteSuccess]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -62,7 +76,15 @@ const EditPage = () => {
     }));
   };
 
+  const handleEdit =  (e) => {
+    e.preventDefault();
+    dispatch(updateBookAction(id, formData));
+  };
 
+  const handleDelete =  (e) => {
+    e.preventDefault();
+    dispatch(deleteBookAction(id));
+  };
 
   return (
     <div className="w-[100vw] top-[5vw] absolute right-0 bg-[grey] justify-center pt-[60px] flex gap-[70px]">
@@ -136,14 +158,20 @@ const EditPage = () => {
           className="w-[100%] p-[10px]  mb-[20px] outline-none"
         />
 
-        {/* <div className="flex gap-[20px]">
-          <button className="border bg-[green] text-white px-[20px] py-[5px]">
+        <div className="flex gap-[20px]">
+          <button
+            onClick={handleEdit}
+            className="border bg-[green] text-white px-[20px] py-[5px]"
+          >
             Edit
           </button>
-          <button className="border bg-[green] text-white px-[20px] py-[5px]">
+          <button
+            onClick={handleDelete}
+            className="border bg-[green] text-white px-[20px] py-[5px]"
+          >
             Delete
           </button>
-        </div> */}
+        </div>
       </form>
     </div>
   );

@@ -14,6 +14,9 @@ const Signup = () => {
   const {
     createdUser: { error, user, success, loading },
   } = useSelector((state) => state);
+  const userInfoFromLocalStorage = localStorage.getItem("libraryUserInfo")
+  ? JSON.parse(localStorage.getItem("libraryUserInfo"))
+  : null;
 
   const [value, setValue] = useState({
     username: "",
@@ -33,7 +36,7 @@ const Signup = () => {
   useEffect(() => {
 
     if (success) {
-      toast.success(`welcome${user.username}`);
+      toast.success(`welcome ${userInfoFromLocalStorage?.data?.username}`);
     }
 
     if (error) {

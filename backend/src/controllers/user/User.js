@@ -94,13 +94,13 @@ async function ComparePassword(plainPassword, hashedPassword) {
 }
 
 const getUsers = async (req, res) => {
-
   const getUser = await User.find({});
 
   res.status(httpStatus.OK).json({
     status: "success",
     data: getUser,
   });
+
 };
 
 const getUser = async (req, res) => {

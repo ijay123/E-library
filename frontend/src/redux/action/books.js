@@ -4,15 +4,18 @@ import {
   CREATE_BOOKS_SUCCESS,
   CREATE_BOOKS_ERROR,
   CREATE_BOOKS_REQUEST,
-  UPLOAD_IMAGE_REQUEST,
-  UPLOAD_IMAGE_SUCCESS,
-  UPLOAD_IMAGE_ERROR,
   GET_BOOKS_ERROR,
   GET_BOOKS_REQUEST,
   GET_BOOKS_SUCCESS,
   GET_BOOK_ERROR,
   GET_BOOK_REQUEST,
   GET_BOOK_SUCCESS,
+  DELETE_BOOKS_REQUEST,
+  DELETE_BOOKS_SUCCESS,
+  DELETE_BOOKS_ERROR,
+  UPDATE_BOOKS_REQUEST,
+  UPDATE_BOOKS_SUCCESS,
+  UPDATE_BOOKS_ERROR,
 } from "../constants/books";
 
 const userInfoFromLocalStorage = localStorage.getItem("libraryUserInfo")
@@ -33,10 +36,6 @@ export const createBookAction = (formData) => async (dispatch, state) => {
     },
   };
 
-  // const formBookData = new FormData()
-
-  //      formBookData.append('title', formData.title)
-  //      formBookData.append('bookImage', 'image file')
   try {
     //make API call
     const { data } = await axios.post(`${baseUrl}/books`, formData, config);
@@ -60,35 +59,6 @@ export const createBookAction = (formData) => async (dispatch, state) => {
       type: CREATE_BOOKS_ERROR,
       payload: message,
     });
-  }
-};
-
-export const imageUploadAction = (formData) => async (dispatch, state) => {
-  dispatch({
-    type: UPLOAD_IMAGE_REQUEST,
-  });
-
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-      authorization: `Bearer ${userInfoFromLocalStorage.token}`,
-    },
-  };
-
-  try {
-    const formBookData = new FormData();
-    formBookData.append("title", formData.title);
-    formBookData.append("bookImage", formData.bookImage);
-
-    const response = await axios.patch(
-      `${baseUrl}/upload-image`,
-      formBookData,
-      config
-    );
-
-    dispatch(UPLOAD_IMAGE_SUCCESS(response.data.url));
-  } catch (error) {
-    dispatch(UPLOAD_IMAGE_ERROR(error.message));
   }
 };
 
@@ -138,7 +108,6 @@ export const getBooksAction = () => async (dispatch, state) => {
   }
 };
 
-
 export const getBookAction = (id) => async (dispatch, state) => {
   const {
     loggedInUser: { user },
@@ -155,7 +124,7 @@ export const getBookAction = (id) => async (dispatch, state) => {
       type: GET_BOOK_REQUEST,
     });
     // make the call
-    const { data } = await axios.get(`${baseUrl}/users/${id}`, config);
+    const { data } = await axios.get(`${baseUrl}/books/${id}`, config);
     console.log(data, "data");
     //if we get here, then request is a success case
     dispatch({
@@ -172,6 +141,81 @@ export const getBookAction = (id) => async (dispatch, state) => {
     console.log(message, "error");
     dispatch({
       type: GET_BOOK_ERROR,
+      payload: message,
+    });
+  }
+};
+
+export const deleteBookAction = (id) => async (dispatch, state) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${userInfoFromLocalStorage.token}`,
+    },
+  };
+  try {
+    console.log(dispatch, "dispatch");
+    dispatch({
+      type: DELETE_BOOKS_REQUEST,
+    });
+    // make the call
+    const { data } = await axios.delete(`${baseUrl}/books/${id}`, config);
+    console.log(data, "data");
+    //if we get here, then request is a success case
+    dispatch({
+      type: DELETE_BOOKS_SUCCESS,
+      payload: data.payload,
+    });
+  } catch (error) {
+    let message =
+      error.response && error.response.data.errors
+        ? error.response.data.errors.join(",")
+        : error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    console.log(message, "error");
+    dispatch({
+      type: DELETE_BOOKS_ERROR,
+      payload: message,
+    });
+  }
+};
+
+export const updateBookAction = (id, formData) => async (dispatch, state) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${userInfoFromLocalStorage.token}`,
+    },
+  };
+  try {
+    console.log(dispatch, "dispatch");
+    dispatch({
+      type: UPDATE_BOOKS_REQUEST,
+    });
+    // make the call
+    const { data } = await axios.patch(
+      `${baseUrl}/books/${id}`,
+      formData,
+      config
+    );
+    console.log(data, "data");
+    //if we get here, then request is a success case
+    dispatch({
+      type: UPDATE_BOOKS_SUCCESS,
+      payload: data.payload,
+    });
+  } catch (error) {
+    let message =
+      error.response && error.response.data.errors
+        ? error.response.data.errors.join(",")
+        : error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    console.log(message, "error");
+
+    dispatch({
+      type: UPDATE_BOOKS_ERROR,
       payload: message,
     });
   }
