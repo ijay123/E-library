@@ -4,7 +4,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import Home from "../screens/home/Home";
 import Category from "../screens/categories/Category";
 import Books from "../screens/books/Books";
-import About from "../screens/About/About";
+
 import Signup from "../screens/signup/Signup";
 import Layout from "../components/defaultLayout/layout/Layout";
 import NotFound from "../components/defaultLayout/not_found/NotFound";
@@ -74,14 +74,7 @@ const Rout = () => {
         }
       />
 
-      <Route
-        path="/about"
-        element={
-          <Layout>
-            <About />
-          </Layout>
-        }
-      />
+   
 
 
 <Route
