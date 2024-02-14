@@ -45,8 +45,13 @@ const createUser = async (req, res) => {
     username: data.username,
     password: hash, //hash the password using bcrycpt
     email: data.email,
+    gender: data.gender,
     avatar:
-      "https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?size=338&ext=jpg&ga=GA1.1.1546980028.1702166400&semt=sph",
+      data.gender === "Male"
+        ? "https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?size=626&ext=jpg&ga=GA1.2.1666096504.1702379919&semt=sph"
+        : data.gender === "Female"
+        ? "https://cdn-icons-png.flaticon.com/128/4140/4140047.png"
+        : "defaultAvatar.jpg",
   });
 
   res.status(httpStatus.CREATED).json({
@@ -100,7 +105,6 @@ const getUsers = async (req, res) => {
     status: "success",
     data: getUser,
   });
-
 };
 
 const getUser = async (req, res) => {

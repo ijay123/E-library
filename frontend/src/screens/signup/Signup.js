@@ -15,13 +15,14 @@ const Signup = () => {
     createdUser: { error, user, success, loading },
   } = useSelector((state) => state);
   const userInfoFromLocalStorage = localStorage.getItem("libraryUserInfo")
-  ? JSON.parse(localStorage.getItem("libraryUserInfo"))
-  : null;
+    ? JSON.parse(localStorage.getItem("libraryUserInfo"))
+    : null;
 
   const [value, setValue] = useState({
     username: "",
     password: "",
     email: "",
+    gender: "",
   });
 
   function changeHandler(e) {
@@ -34,7 +35,6 @@ const Signup = () => {
   }
 
   useEffect(() => {
-
     if (success) {
       toast.success(`welcome ${userInfoFromLocalStorage?.data?.username}`);
     }
@@ -45,7 +45,13 @@ const Signup = () => {
         dispatch(CREATE_USER_CLEAR_ERROR);
       }, 3000);
     }
-  }, [dispatch, error, user, success,userInfoFromLocalStorage?.data?.username]);
+  }, [
+    dispatch,
+    error,
+    user,
+    success,
+    userInfoFromLocalStorage?.data?.username,
+  ]);
 
   // async function LoginHandler() {
   //   dispatch(loginUserAction({ email: value.email, password: value.password }));
@@ -57,6 +63,7 @@ const Signup = () => {
         username: value.username,
         email: value.email,
         password: value.password,
+        gender: value.gender,
       })
     );
   }
@@ -67,9 +74,12 @@ const Signup = () => {
         <img src={SignupImg} alt="" />
       </div>
       <div className={styles.main2}>
-      <div className="font-thin float-right"><img src="/images/book4.png" className="w-[40px]" alt=""/>E-Library</div>
+        <div className="font-thin float-right">
+          <img src="/images/book4.png" className="w-[40px]" alt="" />
+          E-Library
+        </div>
         <form className={styles.form}>
-        <p className="text-[30px] font-bold pb-[40px]">Create Account</p>
+          <p className="text-[30px] font-bold pb-[40px]">Create Account</p>
           <p>USERNAME</p>
           <input
             onChange={changeHandler}
@@ -77,6 +87,13 @@ const Signup = () => {
             name="username"
             placeholder="Username"
           />
+          <br />
+          <p>GENDER</p>
+          <select onChange={changeHandler} name="gender" className="mb-[50px] border text-[black] bg-[#d0cdcd] border-[red] w-[100%] px-[20px] py-[10px] rounded-[10px] outline-none">
+            <option value="">Select Gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+          </select>
           <br />
           <p>EMAIL</p>
           <input
@@ -97,14 +114,21 @@ const Signup = () => {
           {loading ? (
             <Spinner />
           ) : (
-            <button type="submit" onClick={RegisterHandler} className={styles.btn1}>
+            <button
+              type="submit"
+              onClick={RegisterHandler}
+              className={styles.btn1}
+            >
               SIGNUP
             </button>
           )}
 
           <br />
           <p className={styles.text}>
-            Already have an Account? <Link to={'/login'} className={styles.login}>Login</Link>
+            Already have an Account?{" "}
+            <Link to={"/login"} className={styles.login}>
+              Login
+            </Link>
           </p>
         </form>
       </div>

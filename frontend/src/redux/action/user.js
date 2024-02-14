@@ -24,7 +24,7 @@ const userInfoFromLocalStorage = localStorage.getItem("libraryUserInfo")
   : null;
 
 export const createUserAction =
-  ({ email, password, username }) =>
+  ({ email, password, username, gender }) =>
   async (dispatch, state) => {
     //1. before the API call
     dispatch({
@@ -41,7 +41,7 @@ export const createUserAction =
       //make API call
       const { data } = await axios.post(
         `${baseUrl}/users`,
-        { email, password, username },
+        { email, password, username, gender },
         config
       );
       //2. after the API call success
