@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
-import { CiUser } from "react-icons/ci";
+
 import { Link } from "react-router-dom";
 import styles from "./Navigation.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { getUsersAction } from "../../../redux/action/user";
+import { logout } from "../../../redux/action/user";
 
 const Navigation = () => {
   const dispatch = useDispatch();
@@ -11,7 +12,9 @@ const Navigation = () => {
   const userInfoFromLocalStorage = localStorage.getItem("libraryUserInfo")
     ? JSON.parse(localStorage.getItem("libraryUserInfo"))
     : null;
+   
 
+  
   const {
     allUsers: { users },
   } = useSelector((state) => state);
@@ -26,6 +29,10 @@ const Navigation = () => {
       dispatch(getUsersAction());
 
   }, [dispatch, users]);
+
+  const handleLogout = () => {
+    dispatch(logout()); // Dispatch the logout action
+  };
 
   return (
     <div className={styles.nav}>
@@ -42,8 +49,7 @@ const Navigation = () => {
       <div className={styles.left}>
         <input placeholder="Search" />
 
-        <Link to={"/"}>Signup</Link>
-        <Link to={"/login"}>Login</Link>
+        <span onClick={handleLogout}>log out</span>
         <div className={styles.profile}>
           <img className="w-[35px] rounded-[50%]" src={userInfoFromLocalStorage?.data?.avatar} alt="User Avatar" />
         </div>

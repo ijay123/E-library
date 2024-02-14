@@ -45,7 +45,7 @@ const Signup = () => {
         dispatch(CREATE_USER_CLEAR_ERROR);
       }, 3000);
     }
-  }, [dispatch, error, user, success]);
+  }, [dispatch, error, user, success,userInfoFromLocalStorage?.data?.username]);
 
   // async function LoginHandler() {
   //   dispatch(loginUserAction({ email: value.email, password: value.password }));

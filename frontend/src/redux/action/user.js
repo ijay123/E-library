@@ -119,12 +119,13 @@ export const loginUserAction =
     }
   };
 
-export const logout = () => async (dispatch, state) => {
-  console.log("logged out");
-  dispatch({ type: LOGIN_USER_RESET });
-  localStorage.setItem("userInfo", null);
-  toast.success("logged out");
-};
+  export const logout = () => async (dispatch, state) => {
+    console.log("logged out");
+    dispatch({ type: LOGIN_USER_RESET });
+    localStorage.removeItem("libraryUserInfo"); // This line is changed
+    toast.success("logged out");
+  };
+  
 
 export const getUsersAction = () => async (dispatch, state) => {
   // const {

@@ -20,7 +20,8 @@ export const AdminProtectedRoute = ({ children }) => {
   } else if (data.role === "regular") {
     // Render the regular Layout for regular users
     return <Layout>{children}</Layout>;
-  } else {
+  }
+ else {
     // Redirect to the default route if the role is neither admin nor regular
     return <Navigate to="/" />;
   }

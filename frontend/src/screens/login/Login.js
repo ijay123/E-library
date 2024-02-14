@@ -18,7 +18,7 @@ const Login = () => {
   const userInfoFromLocalStorage = localStorage.getItem("libraryUserInfo")
     ? JSON.parse(localStorage.getItem("libraryUserInfo"))
     : null;
-    console.log(user)
+  console.log(user);
 
   const [value, setValue] = useState({
     password: "",
@@ -33,7 +33,9 @@ const Login = () => {
 
   useEffect(() => {
     if (success) {
-      toast.success(`You have successfully logged in, ${userInfoFromLocalStorage?.data?.username}`);
+      toast.success(
+        `You have successfully logged in, ${userInfoFromLocalStorage?.data?.username}`
+      );
 
       const role = userInfoFromLocalStorage?.data?.role || ""; // Default to an empty string if role is not available
       console.log(role, "role");
@@ -65,7 +67,7 @@ const Login = () => {
     user,
     navigate,
     userInfoFromLocalStorage?.data?.role,
-    userInfoFromLocalStorage.username
+    userInfoFromLocalStorage?.data?.username,
   ]);
 
   async function LoginHandler() {
@@ -83,9 +85,12 @@ const Login = () => {
         <img src={loginImg1} alt="" />
       </div>
       <div className={styles.main2}>
-      <div className="font-thin float-right"><img src="/images/book4.png" className="w-[40px]" alt=""/>E-Library</div>
+        <div className="font-thin float-right">
+          <img src="/images/book4.png" className="w-[40px]" alt="" />
+          E-Library
+        </div>
         <form className={styles.form}>
-        <p className="text-[30px] font-bold pb-[40px]">Login Into Account</p>
+          <p className="text-[30px] font-bold pb-[40px]">Login Into Account</p>
           <p>EMAIL</p>
           <input
             type="email"
