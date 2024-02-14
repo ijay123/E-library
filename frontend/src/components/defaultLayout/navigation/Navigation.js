@@ -5,6 +5,7 @@ import styles from "./Navigation.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { getUsersAction } from "../../../redux/action/user";
 import { logout } from "../../../redux/action/user";
+import { useNavigate } from "react-router-dom";
 
 const Navigation = () => {
   const dispatch = useDispatch();
@@ -12,26 +13,23 @@ const Navigation = () => {
   const userInfoFromLocalStorage = localStorage.getItem("libraryUserInfo")
     ? JSON.parse(localStorage.getItem("libraryUserInfo"))
     : null;
-   
 
-  
+  const navigate = useNavigate();
   const {
     allUsers: { users },
   } = useSelector((state) => state);
 
   console.log(users, "users");
 
-
   console.log(userInfoFromLocalStorage, "user from localStorage");
 
   useEffect(() => {
-  
-      dispatch(getUsersAction());
-
+    dispatch(getUsersAction());
   }, [dispatch, users]);
 
   const handleLogout = () => {
     dispatch(logout()); // Dispatch the logout action
+    navigate("/"); // Redirect to login page after logging out
   };
 
   return (
@@ -51,7 +49,11 @@ const Navigation = () => {
 
         <span onClick={handleLogout}>log out</span>
         <div className={styles.profile}>
-          <img className="w-[35px] rounded-[50%]" src={userInfoFromLocalStorage?.data?.avatar} alt="User Avatar" />
+          <img
+            className="w-[35px] rounded-[50%]"
+            src={userInfoFromLocalStorage?.data?.avatar}
+            alt="User Avatar"
+          />
         </div>
       </div>
       <div className={styles.menubar}>Menu</div>
