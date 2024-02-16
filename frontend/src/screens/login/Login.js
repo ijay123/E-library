@@ -82,15 +82,15 @@ const Login = () => {
   return (
     <div className={styles.main}>
       <div className={styles.img1}>
-        <img src={loginImg1} alt="" />
+        <img src={loginImg1} alt="" className="" />
       </div>
       <div className={styles.main2}>
-        <div className="font-thin float-right">
-          <img src="/images/book4.png" className="w-[40px]" alt="" />
+        <div className="font-thin sm:float-right  flex flex-col justify-center items-center">
+          <img src="/images/book4.png" className="sm:w-[40px] w-[25px] " alt="" />
           E-Library
         </div>
         <form className={styles.form}>
-          <p className="text-[30px] font-bold pb-[40px]">Login Into Account</p>
+          <p className="sm:text-[30px] font-bold pb-[40px]">Login Into Account</p>
           <p>EMAIL</p>
           <input
             type="email"
@@ -116,12 +116,12 @@ const Login = () => {
           )}
 
           <br />
-          <p className={styles.text}>
+          <div className={styles.text}>
             You don't have an Account?{" "}
             <Link to={"/"} className={styles.login}>
               Signup
             </Link>
-          </p>
+          </div>
         </form>
       </div>
     </div>
