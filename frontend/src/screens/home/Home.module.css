@@ -25,7 +25,6 @@
   font-family: "Times New Roman", Times, serif;
 }
 
-
 .icon1 {
   cursor: pointer;
   position: absolute;
@@ -106,10 +105,10 @@
   flex-wrap: wrap;
   gap: 60px;
   justify-content: center;
- align-items: center;
+  align-items: center;
   margin: 40px 100px;
   padding-top: 50px;
-} 
+}
 .more {
   display: flex;
   background-color: red;
@@ -135,12 +134,12 @@
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
- padding-left: 100px;
- padding-right: 100px;
- padding-bottom: 40px;
- padding-top: 80px;
+  padding-left: 100px;
+  padding-right: 100px;
+  padding-bottom: 40px;
+  padding-top: 80px;
   margin: auto;
- 
+
   gap: 50px;
   margin-left: 40px;
   margin-right: 40px;
@@ -181,6 +180,7 @@
     font-family: "Times New Roman", Times, serif;
   }
 
+
   .ecat {
     font-size: 28px;
     color: rgba(230, 52, 52, 0.854);
@@ -195,36 +195,57 @@
   }
   .main {
     display: flex;
-   
     gap: 20px;
     justify-content: center;
-      gap: 20px;
-      justify-content: center;
-     align-items: center;
-      margin: auto;
-      padding-top: 50px;
-      font-size: 15px;
-    
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    padding-top: 50px;
+    font-size: 15px;
+  }
+  .ecat {
+    font-size: 30px;
+    color: rgb(151, 29, 29);
+    display: flex;
+    text-align: center;
+    margin: auto;
+  
   }
   .book {
-    width: 30vw;
+    width: 40vw;
   }
   .cat1 {
     display: flex;
     justify-content: center;
     align-items: center;
-   flex-wrap: nowrap;
-    width: 100vw;
-    /* overflow-x: scroll; */
+    min-width: 100%;
+    flex-wrap: initial;
+    overflow-x: scroll;
+    margin-left: 0px;
+    margin-right: 0px;
+    padding-left: 10px;
+    padding-right: 10px;
   }
-  .cat img{
+  .cat img {
     width: 200px;
- 
   }
+
   .icon1 {
     display: none;
   }
   .bookicon {
     display: none;
+  }
+  .more {
+    display: flex;
+    background-color: red;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-size: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+    margin-bottom: 150px;
   }
 }

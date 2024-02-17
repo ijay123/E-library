@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import { Link } from "react-router-dom";
 import styles from "./Navigation.module.css";
@@ -29,8 +29,10 @@ const Navigation = () => {
 
   const handleLogout = () => {
     dispatch(logout()); // Dispatch the logout action
-    navigate("/"); // Redirect to login page after logging out
+    navigate("/login"); // Redirect to login page after logging out
   };
+
+  const [bar, setBar] = useState(false);
 
   return (
     <div className={styles.nav}>
@@ -56,7 +58,25 @@ const Navigation = () => {
           />
         </div>
       </div>
-      <div className={styles.menubar}>Menu</div>
+      <div className={styles.menubar} onClick={()=> setBar(!bar)}>Menu</div>
+
+{bar &&
+ <div className="sm:hidden absolute right-0 top-[110px] bg-[grey] px-[30px] py-[20px] flex flex-col">
+ <Link to={"/home"} className="focus:text-[green]">Home</Link>
+   <Link to={"/books"} className="focus:text-[green]">Books</Link>
+   <Link to={"/category"} className="focus:text-[green]">Category</Link>
+   <Link to={"/contact"} className="focus:text-[green]">Contact</Link>
+   <div className={styles.profile}>
+     <img
+       className="w-[35px] rounded-[50%]"
+       src={userInfoFromLocalStorage?.data?.avatar}
+       alt="User Avatar"
+     /> My Account
+   </div>
+   <span onClick={handleLogout}>log out</span>
+ </div>
+}
+     
     </div>
   );
 };

@@ -68,7 +68,7 @@ const History = () => {
         ))}
       
     </div>
-    <div>
+    <div className="hidden sm:flex">
       <img src="/images/black-history-month.png" className="w-[100px] absolute top-[290px] left-[110px] animate-bounce" alt=""/>
       <img src="/images/parchment.png" className="w-[100px] absolute top-[200px] right-[110px] animate-bounce" alt=""/>
       <img src="/images/black-history-month2.png" className="w-[100px] absolute top-[350px] left-[900px] animate-bounce" alt=""/>

@@ -81,7 +81,7 @@ const Science = () => {
             </div>
           ))}
       </div>
-      <div>
+      <div className="hidden sm:flex">
         <img
           src="/images/laser-gun.png"
           alt=""

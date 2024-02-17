@@ -67,7 +67,7 @@ const Romance = () => {
           </div>
         ))}
     </div>
-    <div className="">
+    <div className="hidden sm:flex">
     <img src="/images/balloons.png" className="w-[130px] absolute top-[200px] left-[50px] animate-bounce" alt=""/>
 
     <img src="/images/kiss.png" className="w-[130px] absolute top-[250px] right-[50px] animate-bounce" alt=""/>

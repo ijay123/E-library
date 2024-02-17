@@ -5,9 +5,8 @@ import { FaGithub } from "react-icons/fa6";
 
 const Footer = () => {
   return (
-    <div className="flex h-[100px] justify-center items-center gap-[300px]">
+    <div className="flex h-[100px] w-[100vw] justify-center items-center gap-[30px]  sm:gap-[300px]">
       <div className="flex gap-[50px] text-[red]">
-        <Link to={'/about'}>About Us</Link>
         <Link to={'/contact'}>Contact Us</Link>
       </div>
 

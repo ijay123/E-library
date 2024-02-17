@@ -68,7 +68,7 @@ const Kids = () => {
           </div>
         ))}
     </div>
-    <div>
+    <div className="hidden sm:flex">
       <img src="/images/car-toy.png" className='w-[100px] absolute top-[1000px] left-[40px] animate-bounce' alt=""/>
       <img src="/images/world-children-day.png" className='w-[100px] absolute top-[200px] left-[70px] animate-bounce' alt=""/>
       <img src="/images/kindergarten.png" className='w-[100px] absolute top-[250px] right-[70px] animate-bounce' alt=""/>

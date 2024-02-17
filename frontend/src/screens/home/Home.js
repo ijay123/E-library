@@ -58,7 +58,7 @@ const Home = () => {
             books.slice(0, 4).map((books, id) => (
               <div className={styles.book} key={id}>
                 <img src={books.bookImage} alt="" />
-                <p>
+                <p className="sm:flex hidden">
       <span className="text-[#a54b4b] text-[20px]">Author(s):</span> 
       {/* Show either the full author name or the truncated version based on showFullAuthor state */}
       {showFullAuthor ? books.author : `${books.author.slice(0, 15)}`}
@@ -69,16 +69,16 @@ const Home = () => {
         </span>
       )}
     </p>
-                <p>
+                <p className="sm:flex hidden">
                   <span className="text-[#a54b4b] text-[20px]">Title: </span>
                   {books.title}
                 </p>
                 <div className="flex gap-[10px]">
-                  <button className="border p-[10px] bg-[#2e5c2e] text-white">
-                    About Book
+                  <button className="border sm:p-[10px] sm:text-[16px] text-[10px] bg-[#2e5c2e] text-white">
+                    About
                   </button>
                   <a href={books.bookPDF}>
-                    <button className="border p-[10px] bg-[#2e5c2e] text-white">
+                    <button className="border text-[10px] sm:text-[16px] sm:p-[10px] bg-[#2e5c2e] text-white">
                       Read
                     </button>
                   </a>

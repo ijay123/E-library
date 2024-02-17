@@ -7,7 +7,7 @@ const Category = () => {
     <div className="pt-[120px] bg-[#959393]">
       <p className="text-[60px] text-[red] text-center">Category of Books</p>
 
-      <div className="flex text-center items-center justify-center gap-[50px] text-[28px] mt-[50px] text-[white]">
+      <div className="flex text-center items-center justify-center overflow-x-scroll gap-[50px] text-[28px] mt-[50px] text-[white]">
         <span>
           <Link to={"science"} className="active:text-[orange] focus:text-[orange]">Science fiction</Link>
         </span>

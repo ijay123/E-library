@@ -67,7 +67,7 @@ const Politics = () => {
           </div>
         ))}
     </div>
-    <div>
+    <div className="hidden sm:flex">
     <img src="/images/news-politics.png" className="w-[100px] absolute top-[300px] right-[50px] animate-bounce" alt=""/>
     <img src="/images/news.png" className="w-[100px] absolute top-[300px] left-[180px] animate-bounce" alt=""/>
     <img src="/images/news2.png" className="w-[100px] absolute top-[1000px] right-[50px] animate-bounce" alt=""/>
