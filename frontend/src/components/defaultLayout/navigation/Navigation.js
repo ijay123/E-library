@@ -39,10 +39,10 @@ const Navigation = () => {
         E-Library
       </div>
       <div className={styles.main}>
-        <Link to={"/home"}>Home</Link>
-        <Link to={"/books"}>Books</Link>
-        <Link to={"/category"}>Category</Link>
-        <Link to={"/contact"}>Contact</Link>
+        <Link to={"/home"} className="focus:text-[grey]">Home</Link>
+        <Link to={"/books"} className="focus:text-[grey]">Books</Link>
+        <Link to={"/category"} className="focus:text-[grey]">Category</Link>
+        <Link to={"/contact"} className="focus:text-[grey]">Contact</Link>
       </div>
       <div className={styles.left}>
         <input placeholder="Search" />

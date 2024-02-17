@@ -106,10 +106,10 @@
   flex-wrap: wrap;
   gap: 60px;
   justify-content: center;
-  align-items: center;
+ align-items: center;
   margin: 40px 100px;
   padding-top: 50px;
-}
+} 
 .more {
   display: flex;
   background-color: red;
@@ -195,14 +195,19 @@
   }
   .main {
     display: flex;
-
-    overflow-x: scroll;
-    gap: 60px;
+   
+    gap: 20px;
     justify-content: center;
+      gap: 20px;
+      justify-content: center;
+     align-items: center;
+      margin: auto;
+      padding-top: 50px;
+      font-size: 15px;
+    
   }
   .book {
-    display: flex;
-    width: 200px;
+    width: 30vw;
   }
   .cat1 {
     display: flex;

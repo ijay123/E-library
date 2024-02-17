@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Home.module.css";
 import Snowfall from "react-snowfall";
 import { ImLibrary } from "react-icons/im";
@@ -13,7 +13,6 @@ const Home = () => {
   const dispatch = useDispatch();
   const {
     getBooks: { books },
-  
   } = useSelector((state) => state);
 
   console.log(books, "books");
@@ -25,6 +24,12 @@ const Home = () => {
   useEffect(() => {
     dispatch(getBooksAction());
   }, [dispatch]);
+  const [showFullAuthor, setShowFullAuthor] = useState(false);
+
+  // Toggles between showing the full author name and the truncated version
+  const toggleAuthorDisplay = () => {
+    setShowFullAuthor(!showFullAuthor);
+  };
   return (
     <>
       <div className={styles.home}>
@@ -54,9 +59,16 @@ const Home = () => {
               <div className={styles.book} key={id}>
                 <img src={books.bookImage} alt="" />
                 <p>
-                  <span className="text-[#a54b4b] text-[20px]">Author(s):</span>{" "}
-                  {books.author}
-                </p>
+      <span className="text-[#a54b4b] text-[20px]">Author(s):</span> 
+      {/* Show either the full author name or the truncated version based on showFullAuthor state */}
+      {showFullAuthor ? books.author : `${books.author.slice(0, 15)}`}
+      {/* Only show the clickable "..." when the full author name is not being displayed */}
+      {!showFullAuthor && (
+        <span onClick={toggleAuthorDisplay} className="cursor-pointer">
+          ...
+        </span>
+      )}
+    </p>
                 <p>
                   <span className="text-[#a54b4b] text-[20px]">Title: </span>
                   {books.title}
@@ -86,13 +98,15 @@ const Home = () => {
           <div className={styles.cat1}>
             {catData.map((cat) => (
               <div className={styles.cat}>
-                <img src={cat.catImg} className='w-[190px]' alt="" />
-                <i><p className={styles.tex}>{cat.text}</p></i>
+                <img src={cat.catImg} className="w-[190px]" alt="" />
+                <i>
+                  <p className={styles.tex}>{cat.text}</p>
+                </i>
                 <button
                   onClick={() => handleNavigate(cat.url)}
                   className="border p-[7px] text-[#723030] bg-[#9d9999] w-[120px] rounded-[5px]"
                 >
-                {cat.url}
+                  {cat.url}
                 </button>
               </div>
             ))}

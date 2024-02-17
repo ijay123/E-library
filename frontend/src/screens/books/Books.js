@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getBooksAction } from "../../redux/action/books";
 import { Link, useNavigate } from "react-router-dom";
@@ -15,6 +15,13 @@ const Books = () => {
     dispatch(getBooksAction());
   }, [dispatch]);
 
+  const [showFullAuthor, setShowFullAuthor] = useState(false);
+
+  // Toggles between showing the full author name and the truncated version
+  const toggleAuthorDisplay = () => {
+    setShowFullAuthor(!showFullAuthor);
+  };
+
   return (
     <div className="pt-[100px] bg-[#959393]">
       <p className="text-[60px] text-[#9e3636] flex justify-center mb-[100px] mt-[70px]">
@@ -26,9 +33,16 @@ const Books = () => {
             <div className=" w-[250px] text-[white] border p-[5px]" key={id}>
               <img src={books.bookImage} alt="" />
               <p>
-                <span className="text-[#a54b4b] text-[20px]">Author(s):</span>{" "}
-                {books.author}
-              </p>
+      <span className="text-[#a54b4b] text-[20px]">Author(s):</span> 
+      {/* Show either the full author name or the truncated version based on showFullAuthor state */}
+      {showFullAuthor ? books.author : `${books.author.slice(0, 15)}...`}
+      {/* Only show the clickable "..." when the full author name is not being displayed */}
+      {!showFullAuthor && (
+        <span onClick={toggleAuthorDisplay} className="cursor-pointer">
+          more
+        </span>
+      )}
+    </p>
               <p>
                 <span className="text-[#a54b4b] text-[20px]">Title: </span>
                 {books.title}

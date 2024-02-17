@@ -89,7 +89,11 @@ const Signup = () => {
           />
           <br />
           <p>GENDER</p>
-          <select onChange={changeHandler} name="gender" className="mb-[50px] border text-[black] bg-[#d0cdcd] border-[red] w-[100%] px-[20px] py-[10px] rounded-[10px] outline-none">
+          <select
+            onChange={changeHandler}
+            name="gender"
+            className="sm:mb-[50px] border text-[black] bg-[#d0cdcd] border-[red] w-[77vw] flex m-auto sm:w-[100%] px-[20px] py-[10px] rounded-[10px] outline-none"
+          >
             <option value="">Select Gender</option>
             <option value="Male">Male</option>
             <option value="Female">Female</option>
