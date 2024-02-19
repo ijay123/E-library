@@ -33,16 +33,21 @@ const Books = () => {
             <div className=" w-[250px] text-[white] border p-[5px]" key={id}>
               <img src={books.bookImage} alt="" />
               <p>
-      <span className="text-[#a54b4b] text-[20px]">Author(s):</span> 
-      {/* Show either the full author name or the truncated version based on showFullAuthor state */}
-      {showFullAuthor ? books.author : `${books.author.slice(0, 15)}...`}
-      {/* Only show the clickable "..." when the full author name is not being displayed */}
-      {!showFullAuthor && (
-        <span onClick={toggleAuthorDisplay} className="cursor-pointer">
-          more
-        </span>
-      )}
-    </p>
+                <span className="text-[#a54b4b] text-[20px]">Author(s):</span>
+                {/* Show either the full author name or the truncated version based on showFullAuthor state */}
+                {showFullAuthor
+                  ? books.author
+                  : `${books.author.slice(0, 15)}...`}
+                {/* Only show the clickable "..." when the full author name is not being displayed */}
+                {!showFullAuthor && (
+                  <span
+                    onClick={toggleAuthorDisplay}
+                    className="cursor-pointer"
+                  >
+                    more
+                  </span>
+                )}
+              </p>
               <p>
                 <span className="text-[#a54b4b] text-[20px]">Title: </span>
                 {books.title}
