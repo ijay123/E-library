@@ -8,7 +8,7 @@ const NotFound = () => {
         Page Not Found
       </h4>
       <Link
-        to="/"
+        to="/home"
         className="text-[blue] text-[30px] justify-center flex items-center"
       >
         Go Back
