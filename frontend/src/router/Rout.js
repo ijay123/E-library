@@ -154,7 +154,7 @@ const Rout = () => {
 
       <Route path="/" element={<Signup />} />
       <Route path="/login" element={<Login />} />
-      <Route path="*" element={<Navigate to={"/notFound"} />} />
+      {/* <Route path="*" element={<Navigate to={"/notFound"} />} /> */}
     </Routes>
   );
 };
