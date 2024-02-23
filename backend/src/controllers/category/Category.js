@@ -71,6 +71,7 @@ const updateCategory = async (req, res) => {
     });
     return;
   }
+  
   const updatedCategory = await Category.findByIdAndUpdate(
     { _id: id },
     { category: categoryTitle },

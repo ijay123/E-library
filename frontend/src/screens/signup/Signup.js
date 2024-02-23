@@ -36,7 +36,7 @@ const Signup = () => {
 
   useEffect(() => {
     if (success) {
-      toast.success(`welcome ${userInfoFromLocalStorage?.data?.username}`);
+      toast.success(`welcome ${userInfoFromLocalStorage?.data?.FirstName}`);
     }
 
     if (error) {
@@ -45,13 +45,7 @@ const Signup = () => {
         dispatch(CREATE_USER_CLEAR_ERROR);
       }, 3000);
     }
-  }, [
-    dispatch,
-    error,
-    user,
-    success,
-    userInfoFromLocalStorage?.data?.username,
-  ]);
+  }, [dispatch, error, success, userInfoFromLocalStorage?.data?.FirstName]);
 
   // async function LoginHandler() {
   //   dispatch(loginUserAction({ email: value.email, password: value.password }));

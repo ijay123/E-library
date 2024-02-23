@@ -34,7 +34,7 @@ const Login = () => {
   useEffect(() => {
     if (success) {
       toast.success(
-        `You have successfully logged in, ${userInfoFromLocalStorage?.data?.username}`
+        `You have successfully logged in, ${userInfoFromLocalStorage?.data?.FirstName}`
       );
 
       const role = userInfoFromLocalStorage?.data?.role || ""; // Default to an empty string if role is not available
@@ -67,7 +67,7 @@ const Login = () => {
     user,
     navigate,
     userInfoFromLocalStorage?.data?.role,
-    userInfoFromLocalStorage?.data?.username,
+    userInfoFromLocalStorage?.data?.FirstName,
   ]);
 
   async function LoginHandler() {
@@ -86,11 +86,17 @@ const Login = () => {
       </div>
       <div className={styles.main2}>
         <div className="font-thin sm:float-right  flex flex-col justify-center items-center">
-          <img src="/images/book4.png" className="sm:w-[40px] w-[25px] " alt="" />
+          <img
+            src="/images/book4.png"
+            className="sm:w-[40px] w-[25px] "
+            alt=""
+          />
           E-Library
         </div>
         <form className={styles.form}>
-          <p className="sm:text-[30px] font-bold pb-[40px]">Login Into Account</p>
+          <p className="sm:text-[30px] font-bold pb-[40px]">
+            Login Into Account
+          </p>
           <p>EMAIL</p>
           <input
             type="email"
