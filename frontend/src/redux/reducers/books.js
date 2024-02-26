@@ -128,7 +128,7 @@ export const getBooksReducer = (
       return {
         loading: false,
         success: false,
-        books: null,
+        books: [],
         error: null,
       };
 

@@ -89,7 +89,7 @@ export const getCategoryReducer = (
       return {
         loading: false,
         success: false,
-        categories: null,
+        categories: [],
         error: null,
       };
 
