@@ -34,7 +34,7 @@ const Login = () => {
   useEffect(() => {
     if (success) {
       toast.success(
-        `You have successfully logged in, ${userInfoFromLocalStorage?.data?.FirstName}`
+        `You have successfully logged in, ${userInfoFromLocalStorage?.data?.username}`
       );
 
       const role = userInfoFromLocalStorage?.data?.role || ""; // Default to an empty string if role is not available
@@ -67,7 +67,7 @@ const Login = () => {
     user,
     navigate,
     userInfoFromLocalStorage?.data?.role,
-    userInfoFromLocalStorage?.data?.FirstName,
+    userInfoFromLocalStorage?.data?.username,
   ]);
 
   async function LoginHandler() {

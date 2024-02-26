@@ -38,11 +38,6 @@ const AdminBooks = () => {
     userId: userInfoFromLocalStorage?.data?._id,
   });
 
-  // const handleChange = (event) => {
-  //   const { name } = event.target;
-  //   setValue({ ...value, [name]: event.target.value });
-  //   console.log(event.target?.value);
-  // };
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -70,8 +65,8 @@ const AdminBooks = () => {
   }
 
   return (
-    <div className="w-[70vw] h-[100vh] top-[5vw] absolute right-0 bg-[grey]">
-      <form className="border w-[450px] p-[30px] text-[#591d1d] m-auto mt-[50px] rounded-[10px]">
+    <div className="w-[80vw] min-h-[100vh] top-[5vw] absolute right-0 bg-[grey]">
+      <form className="border w-[450px] p-[30px] text-[#591d1d] m-auto mt-[50px] mb-[40px] rounded-[10px]">
         <p className="text-[green] text-[40px] mb-[30px]"> Create Book List</p>
 
         <p>Title</p>
@@ -122,14 +117,6 @@ const AdminBooks = () => {
               </option>
             ))}
         </select>
-
-        {/* <input
-          type="text"
-          name="categoryId"
-          placeholder="Category"
-          onChange={handleChange}
-          className="w-[100%] p-[10px]  mb-[20px] outline-none"
-        /> */}
 
         <p>Add Image URL</p>
         <input

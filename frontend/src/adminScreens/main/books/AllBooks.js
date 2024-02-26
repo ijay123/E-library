@@ -16,7 +16,7 @@ const AllBooks = () => {
   }, [dispatch]);
 
   return (
-    <div className="w-[70vw]  top-[5vw] absolute right-0 bg-[white]">
+    <div className="w-[80vw]  top-[5vw] absolute right-0 bg-[white]">
       <table className="border-t-2">
         <thead>
           <tr className="text-[green] w-[100%] h-[50px]">

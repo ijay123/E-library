@@ -102,7 +102,7 @@ const AdminCategory = () => {
   };
 
   return (
-    <div className="w-[70vw] h-[100vh] top-[5vw] absolute right-0 bg-[grey] justify-center pt-[200px] flex gap-[70px]">
+    <div className="w-[80vw] min-h-[100vh] top-[5vw] absolute right-0 bg-[grey] justify-center pt-[200px] flex gap-[70px]">
       <div>
         <form className="border w-[400px] flex flex-col m-auto p-[20px] rounded-[7px]">
           <div className="mb-[40px]">
@@ -132,7 +132,7 @@ const AdminCategory = () => {
       </div>
 
       {/* display screen */}
-      <div className="bg-white w-[400px]  rounded-[7px] p-[30px]">
+      <div className="bg-white w-[400px] mb-[60px]  rounded-[7px] p-[30px]">
         <p className="text-[25px] text-[red]">All Categories</p>
         {categories
           ? categories.map((catList, id) => (
