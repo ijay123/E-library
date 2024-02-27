@@ -3,7 +3,10 @@ import styles from "./Login.module.css";
 import { loginImg1 } from "../../data";
 import { toast } from "react-toastify";
 import { loginUserAction } from "../../redux/action/user";
-import { LOGIN_USER_CLEAR_ERROR } from "../../redux/constants/user";
+import {
+  LOGIN_USER_CLEAR_ERROR,
+  
+} from "../../redux/constants/user";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Spinner from "../../Spinner/CustomSpinner";
@@ -51,13 +54,14 @@ const Login = () => {
             navigate("/");
             break;
         }
+      
       }, 3000);
     }
 
     if (error) {
       toast.error(`${error}`);
       setTimeout(() => {
-        dispatch(LOGIN_USER_CLEAR_ERROR);
+        dispatch({ type: LOGIN_USER_CLEAR_ERROR });
       }, 3000);
     }
   }, [
@@ -128,7 +132,11 @@ const Login = () => {
               Signup
             </Link>
           </div>
-      
+          <p className="mt-[80px] text-[10px] text-[red]">
+            Note
+            <br />
+            AdminLogin - Email: Admin@gmail.com <br /> Password: 1234{" "}
+          </p>
         </form>
       </div>
     </div>

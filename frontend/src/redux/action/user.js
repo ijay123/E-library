@@ -151,7 +151,7 @@ export const getUsersAction = () => async (dispatch, state) => {
     //if we get here, then request is a success case
     dispatch({
       type: GET_USERS_SUCCESS,
-      payload: data.payload,
+      payload: data.data,
     });
   } catch (error) {
     let message =
@@ -193,7 +193,7 @@ export const getUserAction = (id) => async (dispatch, state) => {
     //if we get here, then request is a success case
     dispatch({
       type: GET_USER_SUCCESS,
-      payload: data.payload,
+      payload: data.data,
     });
   } catch (error) {
     let message =

@@ -4,7 +4,7 @@ import styles from "./Signup.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { createUserAction } from "../../redux/action/user";
-import { CREATE_USER_CLEAR_ERROR } from "../../redux/constants/user";
+import { CREATE_USER_CLEAR_ERROR, CREATE_USER_RESET } from "../../redux/constants/user";
 import Spinner from "../../Spinner/CustomSpinner";
 import { Link } from "react-router-dom";
 
@@ -12,7 +12,7 @@ const Signup = () => {
   const dispatch = useDispatch();
 
   const {
-    createdUser: { error, user, success, loading },
+    createdUser: { error, success, loading },
   } = useSelector((state) => state);
   const userInfoFromLocalStorage = localStorage.getItem("libraryUserInfo")
     ? JSON.parse(localStorage.getItem("libraryUserInfo"))
@@ -37,12 +37,16 @@ const Signup = () => {
   useEffect(() => {
     if (success) {
       toast.success(`welcome ${userInfoFromLocalStorage?.data?.FirstName}`);
+      setTimeout(() => {
+        dispatch({type: CREATE_USER_RESET});
+      }, 3000);
     }
+    
 
     if (error) {
       toast.error(`${error}`);
       setTimeout(() => {
-        dispatch(CREATE_USER_CLEAR_ERROR);
+        dispatch({type: CREATE_USER_CLEAR_ERROR});
       }, 3000);
     }
   }, [dispatch, error, success, userInfoFromLocalStorage?.data?.FirstName]);
