@@ -124,7 +124,7 @@ export const loginUserReducer = (
 
 export const getUsersReducer = (
   state = {
-    users: null,
+    users: [],
     loading: false,
     error: null,
     success: false,
@@ -150,7 +150,7 @@ export const getUsersReducer = (
       return {
         loading: false,
         success: false,
-        users: null,
+        users: [],
         error: null,
       };
 
@@ -174,7 +174,7 @@ export const getUsersReducer = (
 
 export const getUserReducer = (
   state = {
-    user:{},
+    user:[],
     loading: false,
     error: null,
     success: false,
@@ -200,7 +200,7 @@ export const getUserReducer = (
       return {
         loading: false,
         success: false,
-        user: null,
+        user: [],
         error: null,
       };
 

@@ -53,7 +53,9 @@ const AdminCategory = () => {
   useEffect(() => {
     if (success) {
       toast.success(`successfully added category ${category.category}`);
-      dispatch({ type: CREATE_CATEGORY_RESET });
+      setTimeout(() => {
+        dispatch(CREATE_CATEGORY_RESET);
+      }, 3000);
     }
 
     if (updatedSuccess) {

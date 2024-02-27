@@ -106,7 +106,7 @@ export const imageUploadReducer = (
 };
 
 export const getBooksReducer = (
-  state = { books: null, loading: false, error: null, success: false },
+  state = { books: [], loading: false, error: null, success: false },
   action
 ) => {
   switch (action.type) {
@@ -128,7 +128,7 @@ export const getBooksReducer = (
       return {
         loading: false,
         success: false,
-        books: null,
+        books: [],
         error: null,
       };
 

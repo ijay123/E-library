@@ -119,13 +119,12 @@ export const loginUserAction =
     }
   };
 
-  export const logout = () => async (dispatch, state) => {
-    console.log("logged out");
-    dispatch({ type: LOGIN_USER_RESET });
-    localStorage.removeItem("libraryUserInfo"); // This line is changed
-    toast.success("logged out");
-  };
-  
+export const logout = () => async (dispatch, state) => {
+  console.log("logged out");
+  dispatch({ type: LOGIN_USER_RESET });
+  localStorage.removeItem("libraryUserInfo"); // This line is changed
+  toast.success("logged out");
+};
 
 export const getUsersAction = () => async (dispatch, state) => {
   // const {
@@ -144,7 +143,10 @@ export const getUsersAction = () => async (dispatch, state) => {
       type: GET_USERS_REQUEST,
     });
     // make the call
-    const { data } = await axios.get(`${baseUrl}/users?id=${userInfoFromLocalStorage.data?._id}`, config);
+    const { data } = await axios.get(
+      `${baseUrl}/users?id=${userInfoFromLocalStorage.data?._id}`,
+      config
+    );
     console.log(data, "data");
     //if we get here, then request is a success case
     dispatch({

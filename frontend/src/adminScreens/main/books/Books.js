@@ -47,7 +47,9 @@ const AdminBooks = () => {
   useEffect(() => {
     if (success) {
       toast.success(`successfully added book`);
-      dispatch({ type: CREATE_BOOKS_RESET });
+      setTimeout(() => {
+        dispatch(CREATE_BOOKS_RESET);
+      }, 3000);
     }
 
     if (error) {

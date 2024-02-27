@@ -15,7 +15,7 @@ const Users = () => {
   }, [dispatch]);
 
   return (
-    <div className="w-[70vw] h-[100vh] top-[5vw] absolute right-0 bg-[grey] justify-center pt-[30px] flex gap-[70px]">
+    <div className="w-[80vw] h-[100vh] top-[5vw] absolute right-0 bg-[grey] justify-center pt-[30px] flex gap-[70px]">
       <table>
         <thead>
           <tr>
